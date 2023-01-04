@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Engine Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Project Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Project Files\HealthComponent">
+      <UniqueIdentifier>{d2cceb40-fb7a-4764-a24e-f410a9857a98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Game">
+      <UniqueIdentifier>{7ed8c896-4fd6-456a-a687-637ed20d913a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Controllers">
+      <UniqueIdentifier>{2819c2e6-719b-4978-a4b8-ca7f95af3c46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Controllers\Controller">
+      <UniqueIdentifier>{068d47e8-6606-4cb4-aee1-021af97dbb0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Controllers\inputController">
+      <UniqueIdentifier>{65cebfae-560e-4c19-8850-ace415a1e8dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Controllers\AIcontroller">
+      <UniqueIdentifier>{e5a83f52-7d74-438a-a047-965d1fb80394}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Actors">
+      <UniqueIdentifier>{ca7bdf0b-644a-43e7-9d02-f9f03f57cb53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Actors\Actor">
+      <UniqueIdentifier>{829c24c6-760f-4d7d-9144-10e3a430fa1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Actors\Character">
+      <UniqueIdentifier>{1e898e8f-130e-4e91-810e-457f24ada0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Actors\Projectile">
+      <UniqueIdentifier>{36dcb53e-87cc-4c76-ae15-7abb42accd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\ProjectileManager">
+      <UniqueIdentifier>{95929abe-9f07-4c37-bbde-26f5b3981c0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Delay">
+      <UniqueIdentifier>{e5817160-49ff-41b6-a12b-83f8d5671824}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Qlearning">
+      <UniqueIdentifier>{c30c9c11-bdbb-42dc-852b-58f397ccf576}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AbstractGame.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngine.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameWinMain.cpp">
+      <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthComponent.cpp">
+      <Filter>Project Files\HealthComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="Controller.cpp">
+      <Filter>Project Files\Controllers\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="inputController.cpp">
+      <Filter>Project Files\Controllers\inputController</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Project Files\Actors\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="AIcontroller.cpp">
+      <Filter>Project Files\Controllers\AIcontroller</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Project Files\Actors\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Project Files\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Project Files\Actors\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="ProjectileManager.cpp">
+      <Filter>Project Files\ProjectileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Delay.cpp">
+      <Filter>Project Files\Delay</Filter>
+    </ClCompile>
+    <ClCompile Include="Qlearning.cpp">
+      <Filter>Project Files\Qlearning</Filter>
+    </ClCompile>
+    <ClCompile Include="QLearningCharacter.cpp">
+      <Filter>Project Files\Qlearning</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AbstractGame.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDefines.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngine.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameWinMain.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStruct.h">
+      <Filter>Engine Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponent.h">
+      <Filter>Project Files\HealthComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Controller.h">
+      <Filter>Project Files\Controllers\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="inputController.h">
+      <Filter>Project Files\Controllers\inputController</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Project Files\Actors\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="AIcontroller.h">
+      <Filter>Project Files\Controllers\AIcontroller</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Project Files\Actors\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Project Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Project Files\Actors\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="ProjectileManager.h">
+      <Filter>Project Files\ProjectileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Delay.h">
+      <Filter>Project Files\Delay</Filter>
+    </ClInclude>
+    <ClInclude Include="Qlearning.h">
+      <Filter>Project Files\Qlearning</Filter>
+    </ClInclude>
+    <ClInclude Include="QLearningCharacter.h">
+      <Filter>Project Files\Qlearning</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="big.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="EngineDemo.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
