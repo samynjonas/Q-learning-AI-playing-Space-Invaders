@@ -2,6 +2,8 @@
 #include <iostream>
 #include <random>
 #include <algorithm>
+
+#include "NeuralNetwork.h"
 #include "GameEngine.h"
 
 class Qlearning
@@ -14,9 +16,12 @@ public:
 
 	bool ReadyNewEpisode();
 
+	bool Render();
+
+
 	int BellmanEquation(int reward);
 
-	bool ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue);
+	bool ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight);
 
 	float Output() const;
 
@@ -29,8 +34,6 @@ private:
 		RIGHT,
 		NOTHING
 	};
-	const int NUM_OF_ACTIONS = 3;
-	actions m_CurrentAction{ actions::LEFT };
 
 	//Observation variables
 	const enum observation
@@ -39,24 +42,14 @@ private:
 		leftDistance	= 1,
 		rightDistance	= 2,
 		shipX			= 3,
-		frontX			= 4
+		frontX			= 4,
+		EnemyInSight	= 5
 	};
-	const int NUM_OF_OBSERVATIONS{ 5 };
-	float m_ObservationTable[5] = { 0.f, 0.f, 0.f, 0.f, 0.f }; //One state
-
-	const int SIZE = 20;
-	const int DISCRETE_OBS_SIZE = SIZE * NUM_OF_OBSERVATIONS;
-	float discrete_obs_win_size;
-	
-	float*** q_table;
 
 
-	const float LEARNING_RATE = 0.1f;
-	const float DISCOUNT = 0.95f;
-	const int EPISODES = 25000;
+	unique_ptr<NeuralNetwork> m_pNeuralNetwork;
 
 
 	bool get_discrete_state(float state);
-
 };
 

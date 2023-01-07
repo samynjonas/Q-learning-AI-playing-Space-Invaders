@@ -99,6 +99,9 @@
     <ClCompile Include="QLearningCharacter.cpp">
       <Filter>Project Files\Qlearning</Filter>
     </ClCompile>
+    <ClCompile Include="NeuralNetwork.cpp">
+      <Filter>Project Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractGame.h">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="QLearningCharacter.h">
       <Filter>Project Files\Qlearning</Filter>
+    </ClInclude>
+    <ClInclude Include="NeuralNetwork.h">
+      <Filter>Project Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

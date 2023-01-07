@@ -192,6 +192,8 @@ void Game::Tick()
 		{
 			enemy->Tick(GAME_ENGINE->GetFrameDelay());
 	
+			m_pQlearningCharacter->GetInViewInfo(enemy->GetBox());
+
 			m_pProjectileManager->Shoot(*enemy);
 			m_pProjectileManager->HitCheck(*enemy);
 

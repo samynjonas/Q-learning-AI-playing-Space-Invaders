@@ -140,6 +140,7 @@
     <ClCompile Include="GameWinMain.cpp" />
     <ClCompile Include="HealthComponent.cpp" />
     <ClCompile Include="inputController.cpp" />
+    <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="ProjectileManager.cpp" />
     <ClCompile Include="Qlearning.cpp" />
@@ -159,6 +160,7 @@
     <ClInclude Include="GameWinMain.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="inputController.h" />
+    <ClInclude Include="NeuralNetwork.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="ProjectileManager.h" />
     <ClInclude Include="Qlearning.h" />

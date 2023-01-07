@@ -3,7 +3,7 @@
 QLearningCharacter::QLearningCharacter(GameStruct::Box box, float health, float speed, bool isPossessed, GameStruct::vector2 forwardVector, int ID)
 	: Character(box, health, speed, isPossessed, forwardVector, ID)
 	, m_SimulateFire{ false }
-	, m_ViewRange{ 150 }
+	, m_ViewRange{ 1000 }
 	, m_FrontProjectilePos{ 0.f, 0.f }
 	, m_FrontProjectileDistance{ static_cast<float>(box.Y) }
 	, m_LeftProjectileDistance{ static_cast<float>(box.X) }
@@ -66,8 +66,12 @@ bool QLearningCharacter::Draw() const
 
 
 	GAME_ENGINE->SetColor(RGB(255, 10, 10));
-	GAME_ENGINE->DrawLine(m_Box.GetCenter().X, m_Box.GetCenter().Y, m_FrontProjectilePos.X, m_FrontProjectilePos.Y);
+	GAME_ENGINE->DrawLine(m_Box.GetCenter().X, m_Box.GetCenter().Y, m_FrontProjectilePos.X, m_Box.GetCenter().Y - m_FrontProjectileDistance);
 
+	GAME_ENGINE->DrawLine(m_Box.GetCenter().X, m_Box.GetCenter().Y, m_Box.GetCenter().X - m_LeftProjectileDistance, m_Box.GetCenter().Y);
+	GAME_ENGINE->DrawLine(m_Box.GetCenter().X, m_Box.GetCenter().Y, m_Box.GetCenter().X + m_RightProjectileDistance, m_Box.GetCenter().Y);
+
+	m_pQlearning->Render();
 
 	return true;
 }
@@ -90,6 +94,7 @@ bool QLearningCharacter::Tick(float deltaTime)
 	//Clear previous InviewInfo
 
 	m_Controller->Tick();
+	m_pQlearning->Tick();
 
 	if (m_KeepInWorld)
 	{
@@ -98,7 +103,7 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 	if (m_HasReceivedInfo)
 	{
-		//m_pQLearning->ReceiveInfo(m_FrontProjectilePos, m_LeftProjectileDistance, m_RightProjectileDistance);
+		m_pQlearning->ReceiveInfo(m_FrontProjectileDistance, m_LeftProjectileDistance, m_RightProjectileDistance, m_Box.X, m_FrontProjectilePos.X, m_IsEnemyInSight);
 		
 		HandleMovement(GAME_ENGINE->GetFrameDelay());
 		
@@ -108,6 +113,7 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 	return true;
 }
+
 
 bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 {
@@ -148,7 +154,7 @@ bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 				return false;
 			}
 		}
-		else if (distance <= m_ViewRange)
+		else if (projectile->GetBox().X > m_Box.X && projectile->GetBox().X < m_Box.X + m_Box.Width)
 		{
 			if (distance < m_FrontProjectileDistance)
 			{
@@ -159,6 +165,19 @@ bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 			return true;
 		}
 	}
+	return false;
+}
+
+bool QLearningCharacter::GetInViewInfo(GameStruct::Box enemyBox)
+{
+	int aiCenter{ m_Box.GetCenter().X };
+
+	if (aiCenter > enemyBox.X && aiCenter < enemyBox.X + enemyBox.Width)
+	{
+		m_IsEnemyInSight = true;
+		return true;
+	}
+
 	return false;
 }
 
@@ -194,10 +213,11 @@ int QLearningCharacter::GetDistance(GameStruct::point p1, GameStruct::point p2) 
 
 bool QLearningCharacter::ResetInfo()
 {
-	m_FrontProjectilePos = GameStruct::point{ 0, 0 };
-	m_FrontProjectileDistance = m_Box.Y;
-	m_LeftProjectileDistance = m_Box.X;
-	m_RightProjectileDistance = GAME_ENGINE->GetWidth() - m_Box.X;
+	//m_FrontProjectilePos = GameStruct::point{ 0, 0 };
+	m_IsEnemyInSight			= false;
+	m_FrontProjectileDistance	= m_Box.Y;
+	m_LeftProjectileDistance	= m_Box.X;
+	m_RightProjectileDistance	= GAME_ENGINE->GetWidth() - m_Box.X;
 
 	m_HasReceivedInfo = false;
 

@@ -3,6 +3,7 @@
 #include "Qlearning.h"
 #include "Projectile.h"
 
+
 class QLearningCharacter : public Character
 {
 public:
@@ -27,7 +28,7 @@ public:
 	bool hasFired() override;
 
 	bool GetInViewInfo(const Projectile* projectile);
-
+	bool GetInViewInfo(GameStruct::Box enemyBox);
 
 private:
 	bool m_SimulateFire;
@@ -39,10 +40,13 @@ private:
 	float m_FrontProjectileDistance;
 	float m_LeftProjectileDistance;
 	float m_RightProjectileDistance;
+	bool  m_IsEnemyInSight;
+
 
 	bool m_HasReceivedInfo; 
 	
 	unique_ptr<Qlearning> m_pQlearning;
+
 
 	bool HandleMovement(float deltaTime) override;
 

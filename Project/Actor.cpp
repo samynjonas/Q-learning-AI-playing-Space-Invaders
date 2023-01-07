@@ -27,6 +27,7 @@ Actor::~Actor()
 
 bool Actor::Draw() const
 {
+	//GAME_ENGINE->SetColor()
 	return GAME_ENGINE->DrawRect(m_Box.X, m_Box.Y, m_Box.Width, m_Box.Height);
 }
 
