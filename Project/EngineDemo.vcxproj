@@ -135,6 +135,10 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Controller.cpp" />
     <ClCompile Include="Delay.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="FileReader.cpp" />
+    <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GameWinMain.cpp" />
@@ -153,6 +157,10 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="Controller.h" />
     <ClInclude Include="Delay.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="FileReader.h" />
+    <ClInclude Include="FileWriter.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDefines.h" />
     <ClInclude Include="GameEngine.h" />

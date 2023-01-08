@@ -158,6 +158,18 @@ public:
 	int			GetFrameDelay() const	{ return m_FrameDelay; }
 	POINT		GetLocation()	const;
 
+	// Custom added Methods
+	int			GetGameWidth()	const	{ return m_GameWidth; }
+	int			GetGameHeight()	const	{ return m_GameHeight; }
+	int			GetGameScore()	const	{ return m_GameScore; }
+
+	// Custom added Mutator Methods
+	void		SetGameWidth(int width)		{ m_GameWidth = width; }
+	void		SetGameHeight(int height)	{ m_GameHeight = height; }
+	void		SetGameScore(int score)		{ m_GameScore = score; }
+	void		AddToGameScore(int score)	{ m_GameScore += score; }
+
+
 	// Public Mutator Methods	
 	void		SetTitle(const tstring& titleRef);							// SetTitle automatically sets the window class name to the same name as the title 
 	void		SetLocation(int x, int y);
@@ -197,6 +209,10 @@ private:
 	AbstractGame*		m_GamePtr{};
 	bool				m_PaintDoublebuffered{};
 	bool				m_Fullscreen{};
+
+	//custom added Member Variables
+	int m_GameWidth{}, m_GameHeight{};
+	int m_GameScore{ 0 };
 
 	// Draw assistance variables
 	HDC					m_HdcDraw{};

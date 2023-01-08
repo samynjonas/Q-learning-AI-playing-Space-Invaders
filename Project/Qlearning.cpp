@@ -46,20 +46,40 @@ bool Qlearning::ReadyNewEpisode()
 	return true;
 }
 
-float Qlearning::Output() const
+int Qlearning::Output() const
 {
-	
-	return 0.f;
+	float leftValue{ m_pNeuralNetwork->GetInputLayer()->vecNeurons[0]->value };
+	float rightValue{ m_pNeuralNetwork->GetInputLayer()->vecNeurons[1]->value };
+	float shootValue{ m_pNeuralNetwork->GetInputLayer()->vecNeurons[2]->value };
+
+
+	if (rightValue > leftValue)
+	{
+		if (shootValue > rightValue)
+		{
+			return static_cast<int>(actions::SHOOT);
+		}
+		return static_cast<int>(actions::RIGHT);
+	}
+	else
+	{
+		if (shootValue > leftValue)
+		{
+			return static_cast<int>(actions::SHOOT);
+		}
+		return static_cast<int>(actions::LEFT);
+	}
+	return 0;
 }
 
 bool Qlearning::ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight)
 {	
 	//Getting the max value
-	float maxFrontDistance	= GAME_ENGINE->GetHeight();
-	float maxLeftDistance	= GAME_ENGINE->GetWidth();
-	float maxRightDistance	= GAME_ENGINE->GetWidth();
-	float maxShipXValue		= GAME_ENGINE->GetWidth();
-	float maxFrontXValue	= GAME_ENGINE->GetWidth();
+	float maxFrontDistance	= GAME_ENGINE->GetGameHeight();
+	float maxLeftDistance	= GAME_ENGINE->GetGameWidth();
+	float maxRightDistance	= GAME_ENGINE->GetGameWidth();
+	float maxShipXValue		= GAME_ENGINE->GetGameWidth();
+	float maxFrontXValue	= GAME_ENGINE->GetGameWidth();
 
 	//Scaling down to percentage
 	float scaledFrontDistance	= frontDistance / maxFrontDistance;

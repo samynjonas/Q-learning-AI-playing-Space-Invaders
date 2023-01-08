@@ -10,8 +10,13 @@ QLearningCharacter::QLearningCharacter(GameStruct::Box box, float health, float 
 	, m_RightProjectileDistance{ static_cast<float>(GAME_ENGINE->GetWidth() - box.X) }
 	, m_HasReceivedInfo{ false }
 	, m_pQlearning{ make_unique<Qlearning>() }
+	, m_pFileWriter{ make_unique<FileWriter>("..\\NeuralNetwork") }
 {
+	ResetInfo();
 
+
+
+	m_pFileWriter->Write(1, m_pQlearning->GetNeuralNetwork().GetConnections());
 }
 
 QLearningCharacter::~QLearningCharacter()
@@ -78,12 +83,23 @@ bool QLearningCharacter::Draw() const
 
 bool QLearningCharacter::HandleMovement(float deltaTime)
 {
-	GameStruct::vector2 movementVector{ m_pQlearning->Output(), 0 };
+	GameStruct::vector2 movementVector{ 0, 0 };
+
+	if (m_pQlearning->Output() == 0)
+	{
+		//move left
+		movementVector.X = -1;
+	}
+	else if (m_pQlearning->Output() == 1)
+	{
+		//move right
+		movementVector.X = 1;
+	}
+
 	movementVector *= m_Speed;
 	movementVector *= deltaTime;
 
 	m_Box.X -= movementVector.X;
-	m_Box.Y -= movementVector.Y;
 
 	return true;
 }
@@ -117,8 +133,15 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 {
+	if (projectile->containsIgnoreId(1) == true)
+	{
+		return false;
+	}
+
 	if (projectile->GetActorType() == type::projectile)
 	{
+
+
 		if (projectile->GetBox().Y > m_Box.Y)
 		{
 			return false;
@@ -190,9 +213,8 @@ bool QLearningCharacter::Shoot()
 }
 bool QLearningCharacter::hasFired()
 {
-	if (m_SimulateFire == true)
+	if (m_pQlearning->Output() == 2)
 	{
-		m_SimulateFire = false;
 		return true;
 	}
 	return false;
@@ -213,11 +235,13 @@ int QLearningCharacter::GetDistance(GameStruct::point p1, GameStruct::point p2) 
 
 bool QLearningCharacter::ResetInfo()
 {
-	//m_FrontProjectilePos = GameStruct::point{ 0, 0 };
+	int halfGameWidht{ GAME_ENGINE->GetGameWidth() / 2 };
+
+	m_FrontProjectilePos = GameStruct::point{ m_Box.GetCenter().X, 0};
 	m_IsEnemyInSight			= false;
 	m_FrontProjectileDistance	= m_Box.Y;
-	m_LeftProjectileDistance	= m_Box.X;
-	m_RightProjectileDistance	= GAME_ENGINE->GetWidth() - m_Box.X;
+	m_LeftProjectileDistance	= halfGameWidht;
+	m_RightProjectileDistance	= halfGameWidht;
 
 	m_HasReceivedInfo = false;
 

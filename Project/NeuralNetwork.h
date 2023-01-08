@@ -159,8 +159,12 @@ public:
 	~NeuralNetwork();
 
 	void Update();
-
 	void Render() const;
+
+	std::vector<Connection*> GetConnections() const
+	{
+		return m_VecConnections;
+	}
 
 
 	Layer* GetInputLayer()

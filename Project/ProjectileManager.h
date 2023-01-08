@@ -1,6 +1,8 @@
 #pragma once
 #include "Projectile.h"
+
 #include "Character.h"
+#include "Enemy.h"
 
 class ProjectileManager final
 {
@@ -20,6 +22,8 @@ public:
 	bool Draw() const;
 
 	bool Shoot(Character& character);
+	bool Shoot(BaseEnemy& Enemy);
+
 	bool HitCheck(Actor& actor);
 
 	vector<Projectile*> GetProjectiles() const

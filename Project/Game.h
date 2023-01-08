@@ -15,8 +15,14 @@
 
 #include "Character.h"
 #include "ProjectileManager.h"
-#include "QLearningCharacter.h"
 #include "Projectile.h"
+
+#include "EnemyManager.h"
+
+#include "QLearningCharacter.h"
+
+
+
 
 //-----------------------------------------------------------------
 // Game Class																
@@ -59,17 +65,12 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-	bool ReleaseNullptr();
 
-
-	// -------------------------
-	// Datamembers
-	// -------------------------
 	unique_ptr<Character> m_pPlayer;
 	unique_ptr<QLearningCharacter> m_pQlearningCharacter;
 
 
-	std::vector<unique_ptr<Character>> m_pEnemies;
+	unique_ptr<EnemyManager> m_pEnemyManager;
 
 	unique_ptr<ProjectileManager> m_pProjectileManager;
 };

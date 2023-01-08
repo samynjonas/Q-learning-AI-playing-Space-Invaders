@@ -18,12 +18,17 @@ public:
 
 	bool Render();
 
+	NeuralNetwork GetNeuralNetwork() const
+	{
+		return *m_pNeuralNetwork;
+	}
+
 
 	int BellmanEquation(int reward);
 
 	bool ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight);
 
-	float Output() const;
+	int Output() const;
 
 private:
 	//actions
@@ -32,7 +37,7 @@ private:
 	{
 		LEFT,
 		RIGHT,
-		NOTHING
+		SHOOT
 	};
 
 	//Observation variables

@@ -27,8 +27,8 @@ void AbstractGame::Initialize(HINSTANCE hInstance)
 	//GAME_ENGINE->RunGameLoop(true);
 
 	// Set optional values
-	GAME_ENGINE->SetWidth(640);
-	GAME_ENGINE->SetHeight(480);
+	GAME_ENGINE->SetWidth(1280);
+	GAME_ENGINE->SetHeight(720);
 	GAME_ENGINE->SetFrameRate(50);
 	//GAME_ENGINE->SetKeyList(String("QSDZ") + (TCHAR) VK_SPACE);
 }

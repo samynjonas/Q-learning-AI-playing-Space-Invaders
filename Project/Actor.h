@@ -19,6 +19,7 @@ public:
 	{
 		actor,
 		character,
+		enemy,
 		projectile
 	};
 
@@ -72,6 +73,8 @@ public:
 		return GameStruct::point{ m_Box.X, m_Box.Y };
 	}
 
+	int GetScoring() const { return m_Scoring; }
+
 protected:
 	//-------------------------------------------------
 	// Private member functions
@@ -86,6 +89,8 @@ protected:
 
 	int m_ActorID;
 	bool m_IsDead;
+
+	int m_Scoring{ 0 };
 
 	type m_ActorType;
 

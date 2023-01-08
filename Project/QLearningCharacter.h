@@ -3,6 +3,7 @@
 #include "Qlearning.h"
 #include "Projectile.h"
 
+#include "FileWriter.h"
 
 class QLearningCharacter : public Character
 {
@@ -46,6 +47,7 @@ private:
 	bool m_HasReceivedInfo; 
 	
 	unique_ptr<Qlearning> m_pQlearning;
+	unique_ptr<FileWriter> m_pFileWriter;
 
 
 	bool HandleMovement(float deltaTime) override;

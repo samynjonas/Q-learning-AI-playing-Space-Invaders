@@ -17,9 +17,6 @@ Character::Character(GameStruct::Box box, float health, float moveSpeed, bool is
 	{
 		m_Controller = make_unique<AIcontroller>();
 	}
-	
-	int X{ m_ActorID };
-
 }
 
 Character::~Character()
@@ -90,9 +87,9 @@ bool Character::KeepInWorld()
 		m_Box.X = 0 + 1;
 	}
 
-	if (m_Box.X + m_Box.Width > GAME_ENGINE->GetWidth())
+	if (m_Box.X + m_Box.Width > GAME_ENGINE->GetGameWidth())
 	{
-		m_Box.X = GAME_ENGINE->GetWidth() - m_Box.Width - 15;
+		m_Box.X = GAME_ENGINE->GetGameWidth() - m_Box.Width - 15;
 	}
 
 	if (m_Box.Y < 0)
@@ -100,9 +97,9 @@ bool Character::KeepInWorld()
 		m_Box.Y = 0 + 1;
 	}
 
-	if (m_Box.Y + m_Box.Height > GAME_ENGINE->GetHeight())
+	if (m_Box.Y + m_Box.Height > GAME_ENGINE->GetGameHeight())
 	{
-		m_Box.Y = GAME_ENGINE->GetHeight() - m_Box.Height - 1;
+		m_Box.Y = GAME_ENGINE->GetGameHeight() - m_Box.Height - 1;
 	}
 
 	return true;

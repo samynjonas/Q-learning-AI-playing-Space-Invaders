@@ -52,6 +52,21 @@
     <Filter Include="Project Files\Qlearning">
       <UniqueIdentifier>{c30c9c11-bdbb-42dc-852b-58f397ccf576}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Actors\Enemy">
+      <UniqueIdentifier>{1209c30c-e95a-44e8-aa63-77644ef67003}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Qlearning\NeuralNetwork">
+      <UniqueIdentifier>{a1f9db8d-3a7a-479d-8a8b-d85c1c35d64c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\File Handling">
+      <UniqueIdentifier>{ab8bcc26-ba38-4a3a-beb9-1eac300de66d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\File Handling\FileWriter">
+      <UniqueIdentifier>{89aac819-c58a-42b6-b111-689dddffd573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\File Handling\FileReader">
+      <UniqueIdentifier>{cac78f38-8884-48b2-9a58-77db4a4ddbd1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractGame.cpp">
@@ -99,8 +114,20 @@
     <ClCompile Include="QLearningCharacter.cpp">
       <Filter>Project Files\Qlearning</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Project Files\Actors\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>Project Files\Actors\Enemy</Filter>
+    </ClCompile>
     <ClCompile Include="NeuralNetwork.cpp">
-      <Filter>Project Files</Filter>
+      <Filter>Project Files\Qlearning\NeuralNetwork</Filter>
+    </ClCompile>
+    <ClCompile Include="FileWriter.cpp">
+      <Filter>Project Files\File Handling\FileWriter</Filter>
+    </ClCompile>
+    <ClCompile Include="FileReader.cpp">
+      <Filter>Project Files\File Handling\FileReader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -158,8 +185,20 @@
     <ClInclude Include="QLearningCharacter.h">
       <Filter>Project Files\Qlearning</Filter>
     </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Project Files\Actors\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>Project Files\Actors\Enemy</Filter>
+    </ClInclude>
     <ClInclude Include="NeuralNetwork.h">
-      <Filter>Project Files</Filter>
+      <Filter>Project Files\Qlearning\NeuralNetwork</Filter>
+    </ClInclude>
+    <ClInclude Include="FileWriter.h">
+      <Filter>Project Files\File Handling\FileWriter</Filter>
+    </ClInclude>
+    <ClInclude Include="FileReader.h">
+      <Filter>Project Files\File Handling\FileReader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

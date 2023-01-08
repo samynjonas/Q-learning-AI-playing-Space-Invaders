@@ -2,7 +2,7 @@
 
 
 NeuralNetwork::NeuralNetwork()
-	: m_Screen{ GameStruct::Box{0, 250, 250, 250} }
+	: m_Screen{ GameStruct::Box{GAME_ENGINE->GetGameWidth(), 0, GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth(), 250}}
 {
 	m_VecLayers.push_back(new Layer(RGB( 0,		255,	0	))); //Input
 	m_VecLayers.push_back(new Layer(RGB( 255,	0,		0	))); //Hidden
@@ -19,7 +19,6 @@ NeuralNetwork::NeuralNetwork()
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-
 
 	
 	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron(); //Go left
@@ -55,7 +54,7 @@ void NeuralNetwork::Update()
 void NeuralNetwork::Render() const
 {
 
-	GAME_ENGINE->SetColor(RGB(100, 100, 100));
+	GAME_ENGINE->SetColor(RGB(50, 50, 50));
 	GAME_ENGINE->FillRect(m_Screen.X, m_Screen.Y, m_Screen.Width, m_Screen.Height);
 
 	for (const auto* connections : m_VecConnections)

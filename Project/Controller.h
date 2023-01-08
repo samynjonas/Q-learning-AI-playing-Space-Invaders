@@ -22,10 +22,9 @@ protected:
 	virtual float HorizontalMovement() const = 0;
 	virtual float VerticalMovement() const = 0;
 
-
 	unique_ptr<Delay> m_pDelay;
+
 	const int BASESHOOTDELAY;
 	const int SHOOTOFFSET;
-
 };
 

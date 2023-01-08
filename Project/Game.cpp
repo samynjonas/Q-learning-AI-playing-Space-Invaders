@@ -31,26 +31,22 @@ void Game::Initialize(HINSTANCE hInstance)
 	GAME_ENGINE->RunGameLoop(true);		
 	
 	// Set the optional values
-	GAME_ENGINE->SetWidth(1024);
-	GAME_ENGINE->SetHeight(768);
-    GAME_ENGINE->SetFrameRate(50);
+	GAME_ENGINE->SetWidth(1280);
+	GAME_ENGINE->SetHeight(1044);
+    GAME_ENGINE->SetFrameRate(144);
+
+	GAME_ENGINE->SetGameWidth(960);
+	GAME_ENGINE->SetGameHeight(1044);
 
 
 	//Custom variables
 	m_pProjectileManager = make_unique<ProjectileManager>();
 	
-	GameStruct::Box playerBox{ GAME_ENGINE->GetWidth() / 2, GAME_ENGINE->GetHeight() - 100, 50, 50};
+	GameStruct::Box playerBox{ GAME_ENGINE->GetGameWidth() / 2 - 25, GAME_ENGINE->GetGameHeight() - 100 - 25, 50, 50};
 	m_pPlayer = make_unique<Character>(playerBox, 1, 1, true, GameStruct::vector2{0, -1}, 1 );
 	m_pQlearningCharacter = make_unique<QLearningCharacter>(playerBox, 1, 1, true, GameStruct::vector2{ 0, -1 }, 1);
 
-	const size_t enemyAmount{ 10 };
-	for (size_t index = 0; index < enemyAmount; index++)
-	{
-		m_pEnemies.push_back(make_unique<Character>(GameStruct::Box{ 10 + (100 * static_cast<int>(index)), 100, 50, 50}, 1, 1, false, GameStruct::vector2{0, 1}, 2));
-	}
-
-
-	
+	m_pEnemyManager = make_unique<EnemyManager>();	
 
 	// Set the keys that the project needs to listen to
 	//tstringstream buffer;
@@ -157,21 +153,27 @@ void Game::Paint(RECT rect)
 	// Insert paint code
 	GAME_ENGINE->DrawSolidBackground(RGB( 191, 191, 191 ));
 	
+	GAME_ENGINE->SetColor(RGB(100, 100, 100));
+	GAME_ENGINE->FillRect(0, 0, GAME_ENGINE->GetGameWidth(), GAME_ENGINE->GetGameHeight());
+
 	m_pPlayer->Draw();
 
-	for (const auto& enemy : m_pEnemies)
-	{
-		if (enemy != nullptr)
-		{
-			enemy->Draw();
-		}
-	}
+	m_pEnemyManager->Render();
 
 	m_pProjectileManager->Draw();
 
-
 	m_pQlearningCharacter->Draw();
 
+	//Drawing score
+	GAME_ENGINE->SetColor(RGB(50, 50, 50));
+
+	int ScoringWidth{ GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth() };
+
+	GAME_ENGINE->FillRect(GAME_ENGINE->GetGameWidth(), 250, ScoringWidth, 250);
+
+	GAME_ENGINE->SetColor(RGB(0, 0, 0));
+	wstring buffer = std::to_wstring(GAME_ENGINE->GetGameScore());
+	GAME_ENGINE->DrawString(buffer, GAME_ENGINE->GetGameWidth() + ScoringWidth / 2, 250 + 125);
 }
 
 void Game::Tick()
@@ -179,28 +181,22 @@ void Game::Tick()
 	// Insert non-paint code that needs to be executed each tick
 	m_pProjectileManager->Tick();
 	
-	m_pQlearningCharacter->Tick(GAME_ENGINE->GetFrameDelay());
-	
+	m_pQlearningCharacter->Tick(GAME_ENGINE->GetFrameDelay());	
 		
 	m_pPlayer->Tick(GAME_ENGINE->GetFrameDelay());
 	m_pProjectileManager->Shoot(*m_pPlayer);
 	m_pProjectileManager->HitCheck(*m_pPlayer);
 
-	for (auto& enemy : m_pEnemies)
+
+	m_pEnemyManager->Tick();
+	for (auto& enemy : m_pEnemyManager->GetEnemyVector())
 	{
 		if (enemy != nullptr)
 		{
-			enemy->Tick(GAME_ENGINE->GetFrameDelay());
-	
 			m_pQlearningCharacter->GetInViewInfo(enemy->GetBox());
 
 			m_pProjectileManager->Shoot(*enemy);
 			m_pProjectileManager->HitCheck(*enemy);
-
-			if (enemy->IsDead())
-			{
-				enemy.release();
-			}
 		}
 	}
 
@@ -209,25 +205,10 @@ void Game::Tick()
 	{
 		m_pQlearningCharacter->GetInViewInfo(projectile);
 	}
-
-	ReleaseNullptr();
 }
 
 void Game::CallAction(Caller* callerPtr)
 {
 	// Insert the code that needs to be executed when a Caller has to perform an action
 
-}
-
-bool Game::ReleaseNullptr()
-{
-	for (size_t index = 0; index < m_pEnemies.size(); index++)
-	{
-		if (m_pEnemies[index] == nullptr)
-		{
-			m_pEnemies.erase(m_pEnemies.begin() + index);
-		}
-	}
-
-	return true;
 }

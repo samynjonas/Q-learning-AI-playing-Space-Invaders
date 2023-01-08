@@ -1,0 +1,38 @@
+<NeuralNetwork
+	episode="1"
+	score="0"
+/>
+
+<Connection 1
+	weight="0.340000"
+	weight="0.000000"
+	weight="0.690000"
+	weight="0.240000"
+	weight="-0.220000"
+	weight="0.580000"
+	weight="0.620000"
+	weight="-0.360000"
+	weight="0.050000"
+	weight="0.450000"
+	weight="-0.190000"
+	weight="-0.730000"
+	weight="0.610000"
+	weight="-0.090000"
+	weight="0.950000"
+	weight="0.420000"
+	weight="-0.730000"
+	weight="-0.640000"
+/>
+
+<Connection 2
+	weight="0.910000"
+	weight="-0.960000"
+	weight="0.020000"
+	weight="0.530000"
+	weight="-0.080000"
+	weight="0.820000"
+	weight="-0.790000"
+	weight="0.160000"
+	weight="0.180000"
+/>
+

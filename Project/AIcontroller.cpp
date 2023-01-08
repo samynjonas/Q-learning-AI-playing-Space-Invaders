@@ -37,8 +37,6 @@ float AIcontroller::HorizontalMovement() const
 {
 	float value{  };
 
-
-
 	return value;
 }
 
