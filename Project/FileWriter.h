@@ -15,7 +15,7 @@ public:
 	FileWriter(FileWriter&& other) = delete;
 	FileWriter& operator=(FileWriter&& other) = delete;
 
-	void Write(int episodeNum, std::vector<Connection*> m_VecConnections);
+	void Write(int episodeNum, std::vector<Connection*> m_VecConnections, int highscore);
 
 private:
 	const std::string FILEPATH;

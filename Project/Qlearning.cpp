@@ -72,7 +72,7 @@ int Qlearning::Output() const
 	return 0;
 }
 
-bool Qlearning::ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight, Delay& shootDelay)
+bool Qlearning::ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight, Delay& shootDelay, GameStruct::point episodeTime)
 {	
 	//Getting the max value
 	float maxFrontDistance	= GAME_ENGINE->GetGameHeight();
@@ -81,6 +81,7 @@ bool Qlearning::ReceiveInfo(float frontDistance, float leftDistance, float right
 	float maxShipXValue		= GAME_ENGINE->GetGameWidth();
 	float maxFrontXValue	= GAME_ENGINE->GetGameWidth();
 	float maxShootDelay		= shootDelay.GetDelay();
+	float maxEpisodeTime	= episodeTime.Y;
 
 	//Scaling down to percentage
 	float scaledFrontDistance	= frontDistance / maxFrontDistance;
@@ -89,7 +90,7 @@ bool Qlearning::ReceiveInfo(float frontDistance, float leftDistance, float right
 	float scaledShipXvalue		= shipXvalue	/ maxShipXValue;
 	float scaledFrontXValue		= frontProjectileXValue / maxFrontXValue;
 	float scaledShootDelay		= shootDelay.GetCounter() / maxShootDelay;
-
+	float scaledEpisodeTime		= episodeTime.X / maxEpisodeTime;
 
 	m_pNeuralNetwork->GetInputLayer()->vecNeurons[0]->value = scaledFrontDistance;
 	m_pNeuralNetwork->GetInputLayer()->vecNeurons[1]->value = scaledLeftDistance;
@@ -98,7 +99,7 @@ bool Qlearning::ReceiveInfo(float frontDistance, float leftDistance, float right
 	m_pNeuralNetwork->GetInputLayer()->vecNeurons[4]->value = scaledFrontXValue;
 	m_pNeuralNetwork->GetInputLayer()->vecNeurons[5]->value = enemyInSight;
 	m_pNeuralNetwork->GetInputLayer()->vecNeurons[6]->value = scaledShootDelay;
-
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[7]->value = scaledEpisodeTime;
 
 
 	return true;

@@ -6,9 +6,13 @@
 Episode::Episode()
 	: m_Score{ 0 }
 	, m_LifeTime{ 0 }
+	, m_MaxLifeTime{ 7500 }
 {
-	m_pProjectileManager = make_unique<ProjectileManager>();
 	m_pEnemyManager = make_unique<EnemyManager>();
+	m_pProjectileManager = make_unique<ProjectileManager>();
+
+	GameStruct::Box characterBox{ 0, GAME_ENGINE->GetGameHeight() - 100 - 25, 50, 50 };
+	m_QlearningCharacter = make_unique<QLearningCharacter>( GameStruct::Box{ GAME_ENGINE->GetGameWidth() / 2 - characterBox.Width / 2, characterBox.Y, characterBox.Width, characterBox.Height }, 1, 1, true, GameStruct::vector2{0, -1}, 1);
 }
 
 
@@ -33,12 +37,19 @@ void Episode::Render(bool renderNeuralNetwork) const
 }
 
 void Episode::Tick()
-{
+{	
 	m_pProjectileManager->Tick();
 
+	m_LifeTime += GAME_ENGINE->GetFrameDelay();
+	m_QlearningCharacter->GetEpisodeTime(GameStruct::point{ m_LifeTime, m_MaxLifeTime });
 	m_QlearningCharacter->Tick(GAME_ENGINE->GetFrameDelay());
 
-	m_pProjectileManager->Shoot(*m_QlearningCharacter);
+	if (m_pProjectileManager->Shoot(*m_QlearningCharacter) == true)
+	{
+		m_MaxLifeTime += 500;
+		m_Score += 1;
+	}
+
 	m_pProjectileManager->HitCheck(*m_QlearningCharacter);
 
 
@@ -56,11 +67,24 @@ void Episode::Tick()
 			if (m_pProjectileManager->HitCheck(*enemy))
 			{
 				m_Score += enemy->GetScoring();
+
+				m_MaxLifeTime += 2000;
 			}
 
 			m_QlearningCharacter->GetInViewInfo(enemy->GetBox());
 		}
 	}
+
+	if (m_LifeTime >= m_MaxLifeTime)
+	{
+		m_Score -= 2;
+	}
+
+	if (m_pEnemyManager->GetEnemyVector().empty())
+	{
+		m_Score += 50;
+	}
+
 }
 
 
@@ -76,6 +100,11 @@ bool Episode::IsFinished() const
 		return true;
 	}
 
+	if (m_LifeTime >= m_MaxLifeTime)
+	{
+		return true;
+	}
+
 	return false;
 }
 
@@ -87,4 +116,9 @@ int Episode::GetScore() const
 NeuralNetwork Episode::GetNeuralNetwork() const
 {
 	return m_QlearningCharacter->GetNeuralNetwork();
+}
+
+void Episode::SetStartNeuralNetwork(NeuralNetwork baseNeuralNetwork)
+{
+	m_QlearningCharacter->SetBaseNeuralNetwork(baseNeuralNetwork);
 }

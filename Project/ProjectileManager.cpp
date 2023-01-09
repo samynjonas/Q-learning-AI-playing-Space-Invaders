@@ -66,9 +66,11 @@ bool ProjectileManager::Shoot(BaseEnemy& Enemy)
 {
 	if (Enemy.hasFired())
 	{
-		m_pProjectiles.push_back(new Projectile(GameStruct::Box{ Enemy.GetPoint().X + Enemy.GetBox().Width / 2, Enemy.GetPoint().Y, 5, 5 }, 1, Enemy.GetForwardVector()));
-		m_pProjectiles.back()->AddIgnoreID(Enemy.GetID());
-
+		if (InGameBulletsWithId(Enemy.GetID()) < MAXENEMYBULLETS)
+		{
+			m_pProjectiles.push_back(new Projectile(GameStruct::Box{ Enemy.GetPoint().X + Enemy.GetBox().Width / 2, Enemy.GetPoint().Y, 5, 5 }, 1, Enemy.GetForwardVector()));
+			m_pProjectiles.back()->AddIgnoreID(Enemy.GetID());
+		}
 		return true;
 	}
 
@@ -115,4 +117,19 @@ bool ProjectileManager::HitCheck(Actor& actor)
 		return true;
 	}
 	return false;
+}
+
+int ProjectileManager::InGameBulletsWithId(int id) const
+{
+	int amount{ 0 };
+
+	for (const auto& projectile : m_pProjectiles)
+	{
+		if (projectile->containsIgnoreId(id))
+		{
+			amount++;
+		}
+	}
+
+	return amount;
 }

@@ -28,7 +28,7 @@ public:
 
 	int BellmanEquation(int reward);
 
-	bool ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight, Delay& shootDelay);
+	bool ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight, Delay& shootDelay, GameStruct::point episodeTime);
 
 	int Output() const;
 

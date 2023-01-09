@@ -1,6 +1,6 @@
 <NeuralNetwork
-	episode="1"
-	score="10"
+	episode="2"
+	score="20"
 />
 
 <Connection 1
@@ -13,7 +13,7 @@
 	weight="-0.380000"
 	weight="0.570000"
 	weight="-0.590000"
-	weight="-0.410000"
+	weight="0.430000"
 	weight="0.230000"
 	weight="0.410000"
 	weight="-0.490000"
@@ -31,7 +31,7 @@
 	weight="-0.540000"
 	weight="-0.780000"
 	weight="0.390000"
-	weight="0.650000"
+	weight="-0.790000"
 	weight="0.630000"
 	weight="-0.490000"
 	weight="-0.840000"
@@ -48,7 +48,7 @@
 	weight="-0.310000"
 	weight="-0.600000"
 	weight="0.660000"
-	weight="0.760000"
+	weight="0.410000"
 	weight="0.450000"
 	weight="0.080000"
 />

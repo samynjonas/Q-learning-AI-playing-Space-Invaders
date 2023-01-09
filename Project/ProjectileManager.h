@@ -24,6 +24,9 @@ public:
 	bool Shoot(Character& character);
 	bool Shoot(BaseEnemy& Enemy);
 
+	int InGameBulletsWithId(int id) const;
+
+
 	bool HitCheck(Actor& actor);
 
 	vector<Projectile*> GetProjectiles() const
@@ -37,6 +40,7 @@ private:
 
 	vector<Projectile*> m_pProjectiles;
 
+	const int MAXENEMYBULLETS{ 3 };
 
 };
 

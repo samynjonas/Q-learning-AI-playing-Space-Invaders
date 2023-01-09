@@ -15,14 +15,16 @@ NeuralNetwork::NeuralNetwork()
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 
 
+	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 
 	
-	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Dont move
+	//m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Dont move
 	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron(); //Go left
 	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Go Right
 	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Shoot

@@ -26,6 +26,8 @@
 #include <map>
 #include <algorithm>
 
+#include "FileWriter.h"
+
 
 
 //-----------------------------------------------------------------
@@ -69,27 +71,21 @@ private:
 	// -------------------------
 	// Datamembers
 	// -------------------------
-
-	CONST INT CHARACTER_AMOUNT{ 1 };
-	int m_DrawAmount{ 100 };
-
-	float m_LifeTime{};
-	float m_AllTimeHighestLifetime{};
+	int m_RunTime{};
+	int m_Score{};
+	int m_Highscore{};
 	int m_Episode{};
 
 
 	bool AreAllQlearningDead() const;
 	void LoadNextEpisode();
 
-	const int BATCH_AMOUNT;
+	void RenderText() const;
+
+
+	const int BATCH_AMOUNT{ 100 };
 	std::vector<unique_ptr<Episode>> m_VecBatches;
 
+	unique_ptr<FileWriter> m_pFileWriter;
 
-	unique_ptr<Button>	m_BtnAmountShower;
-	unique_ptr<Button>	m_BtnGameSpeed;
-
-
-	std::vector<unique_ptr<QLearningCharacter>> m_VecQLearningCharacters;
-	unique_ptr<EnemyManager> m_pEnemyManager;
-	unique_ptr<ProjectileManager> m_pProjectileManager;
 };

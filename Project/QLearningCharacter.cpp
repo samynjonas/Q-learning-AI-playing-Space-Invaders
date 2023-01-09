@@ -3,7 +3,7 @@
 QLearningCharacter::QLearningCharacter(GameStruct::Box box, float health, float speed, bool isPossessed, GameStruct::vector2 forwardVector, int ID)
 	: Character(box, health, speed, isPossessed, forwardVector, ID)
 	, m_SimulateFire{ false }
-	, m_ViewRange{ 1000 }
+	, m_ViewRange{ 250 }
 	, m_FrontProjectilePos{ 0.f, 0.f }
 	, m_FrontProjectileDistance{ static_cast<float>(box.Y) }
 	, m_LeftProjectileDistance{ static_cast<float>(box.X) }
@@ -12,6 +12,7 @@ QLearningCharacter::QLearningCharacter(GameStruct::Box box, float health, float 
 	, m_pQlearning{	 make_unique<Qlearning>() }
 	, m_LifeTime{ 0 }
 	, m_pShootDelay{ make_unique<Delay>(1000) }
+	, m_EpisodeTime{ GameStruct::point{0, 0}}
 {
 	ResetInfo();
 }
@@ -85,12 +86,12 @@ bool QLearningCharacter::HandleMovement(float deltaTime)
 {
 	GameStruct::vector2 movementVector{ 0, 0 };
 
-	if (m_pQlearning->Output() == 1)
+	if (m_pQlearning->Output() == 0)
 	{
 		//move left
 		movementVector.X = -1;
 	}
-	else if (m_pQlearning->Output() == 2)
+	else if (m_pQlearning->Output() == 1)
 	{
 		//move right
 		movementVector.X = 1;
@@ -129,7 +130,7 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 	}
 
-	m_pQlearning->ReceiveInfo(m_FrontProjectileDistance, m_LeftProjectileDistance, m_RightProjectileDistance, m_Box.X, m_FrontProjectilePos.X, m_IsEnemyInSight, *m_pShootDelay);
+	m_pQlearning->ReceiveInfo(m_FrontProjectileDistance, m_LeftProjectileDistance, m_RightProjectileDistance, m_Box.X, m_FrontProjectilePos.X, m_IsEnemyInSight, *m_pShootDelay, m_EpisodeTime);
 	
 	HandleMovement(GAME_ENGINE->GetFrameDelay());
 	
@@ -138,6 +139,9 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 	return true;
 }
+
+
+
 
 
 bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
@@ -219,7 +223,7 @@ bool QLearningCharacter::Shoot()
 }
 bool QLearningCharacter::hasFired()
 {
-	if (m_pQlearning->Output() == 3 && m_pShootDelay->IsDone())
+	if (m_pQlearning->Output() == 2 && m_pShootDelay->IsDone())
 	{
 		m_pShootDelay->Reset();
 		return true;

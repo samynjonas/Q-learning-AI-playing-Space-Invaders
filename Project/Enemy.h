@@ -33,7 +33,7 @@ private:
 	// -------------------------
 	//Variables-----------------
 	// -------------------------
-	const int SHOOTCHANCE{ 2024 };
+	const int SHOOTCHANCE{ 2048 };
 
 	float m_Speed;
 

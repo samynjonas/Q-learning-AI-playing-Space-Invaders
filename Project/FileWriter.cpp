@@ -14,7 +14,7 @@ FileWriter::~FileWriter()
 
 }
 
-void FileWriter::Write(int episodeNum, std::vector<Connection*> m_VecConnections)
+void FileWriter::Write(int episodeNum, std::vector<Connection*> m_VecConnections, int highscore)
 {
 	std::ofstream output{ FILEPATH + "\\Episode_" + its(episodeNum) + ".txt" };
 	//std::ofstream output{ FILEPATH + ".txt" };
@@ -23,7 +23,7 @@ void FileWriter::Write(int episodeNum, std::vector<Connection*> m_VecConnections
 	output << "<NeuralNetwork" << std::endl;
 
 	output << "\tepisode=\"" << its(episodeNum) << "\"" << std::endl;
-	output << "\tscore=\"" << its(GAME_ENGINE->GetGameScore()) << "\"" << std::endl;
+	output << "\tscore=\"" << its(highscore) << "\"" << std::endl;
 	
 	output << "/>" << std::endl << std::endl;
 
