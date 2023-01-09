@@ -9,14 +9,11 @@ QLearningCharacter::QLearningCharacter(GameStruct::Box box, float health, float 
 	, m_LeftProjectileDistance{ static_cast<float>(box.X) }
 	, m_RightProjectileDistance{ static_cast<float>(GAME_ENGINE->GetWidth() - box.X) }
 	, m_HasReceivedInfo{ false }
-	, m_pQlearning{ make_unique<Qlearning>() }
-	, m_pFileWriter{ make_unique<FileWriter>("..\\NeuralNetwork") }
+	, m_pQlearning{	 make_unique<Qlearning>() }
+	, m_LifeTime{ 0 }
+	, m_pShootDelay{ make_unique<Delay>(1000) }
 {
 	ResetInfo();
-
-
-
-	m_pFileWriter->Write(1, m_pQlearning->GetNeuralNetwork().GetConnections());
 }
 
 QLearningCharacter::~QLearningCharacter()
@@ -68,15 +65,18 @@ bool QLearningCharacter::Draw() const
 	}
 
 	GAME_ENGINE->FillRect(m_Box.X, m_Box.Y, m_Box.Width, m_Box.Height);
+	return true;
+}
 
+bool QLearningCharacter::DrawNeuralNetwork() const
+{
+	m_pQlearning->Render();
 
 	GAME_ENGINE->SetColor(RGB(255, 10, 10));
 	GAME_ENGINE->DrawLine(m_Box.GetCenter().X, m_Box.GetCenter().Y, m_FrontProjectilePos.X, m_Box.GetCenter().Y - m_FrontProjectileDistance);
 
 	GAME_ENGINE->DrawLine(m_Box.GetCenter().X, m_Box.GetCenter().Y, m_Box.GetCenter().X - m_LeftProjectileDistance, m_Box.GetCenter().Y);
 	GAME_ENGINE->DrawLine(m_Box.GetCenter().X, m_Box.GetCenter().Y, m_Box.GetCenter().X + m_RightProjectileDistance, m_Box.GetCenter().Y);
-
-	m_pQlearning->Render();
 
 	return true;
 }
@@ -85,12 +85,12 @@ bool QLearningCharacter::HandleMovement(float deltaTime)
 {
 	GameStruct::vector2 movementVector{ 0, 0 };
 
-	if (m_pQlearning->Output() == 0)
+	if (m_pQlearning->Output() == 1)
 	{
 		//move left
 		movementVector.X = -1;
 	}
-	else if (m_pQlearning->Output() == 1)
+	else if (m_pQlearning->Output() == 2)
 	{
 		//move right
 		movementVector.X = 1;
@@ -108,23 +108,32 @@ bool QLearningCharacter::HandleMovement(float deltaTime)
 bool QLearningCharacter::Tick(float deltaTime)
 {
 	//Clear previous InviewInfo
+	m_LifeTime += deltaTime;
 
-	m_Controller->Tick();
+	m_pShootDelay->Tick();
 	m_pQlearning->Tick();
 
 	if (m_KeepInWorld)
 	{
-		KeepInWorld();
+		//KeepInWorld();
+
+		if (m_Box.X < 0)
+		{
+			m_IsDead = true;
+		}
+
+		if (m_Box.X + m_Box.Width > GAME_ENGINE->GetGameWidth())
+		{
+			m_IsDead = true;
+		}
+
 	}
 
-	if (m_HasReceivedInfo)
-	{
-		m_pQlearning->ReceiveInfo(m_FrontProjectileDistance, m_LeftProjectileDistance, m_RightProjectileDistance, m_Box.X, m_FrontProjectilePos.X, m_IsEnemyInSight);
-		
-		HandleMovement(GAME_ENGINE->GetFrameDelay());
-		
-		ResetInfo();
-	}
+	m_pQlearning->ReceiveInfo(m_FrontProjectileDistance, m_LeftProjectileDistance, m_RightProjectileDistance, m_Box.X, m_FrontProjectilePos.X, m_IsEnemyInSight, *m_pShootDelay);
+	
+	HandleMovement(GAME_ENGINE->GetFrameDelay());
+	
+	ResetInfo();
 
 
 	return true;
@@ -138,21 +147,19 @@ bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 		return false;
 	}
 
-	if (projectile->GetActorType() == type::projectile)
+	if (projectile->GetActorType() == type::projectile) //if projectile is of type projectile
 	{
-
-
-		if (projectile->GetBox().Y > m_Box.Y)
+		if (projectile->GetBox().Y > m_Box.Y) // if the projectile has already passed the character
 		{
-			return false;
+			return true;
 		}
 
-		int distance = GetDistance(projectile->GetBox().GetCenter(), m_Box.GetCenter());
+		int distance = GetDistance(projectile->GetBox().GetCenter(), m_Box.GetCenter()); // Get the distance from the projectile to the character
 
-		if (projectile->GetBox().Y > m_Box.Y - m_Box.Height)
+		if (projectile->GetBox().Y > m_Box.Y - m_Box.Height) //If the projectile is on the player level
 		{
 			//Is on left or right
-			if (projectile->GetBox().X < m_Box.X)
+			if (projectile->GetBox().X < m_Box.X) //If the x is smaller then the character x == is on the left
 			{
 				//On left				
 				if (distance < m_LeftProjectileDistance)
@@ -162,7 +169,7 @@ bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 					return true;
 				}
 			}
-			else if (projectile->GetBox().X > m_Box.X + m_Box.Width)
+			else if (projectile->GetBox().X > m_Box.X + m_Box.Width) //Else if the x is bigger then the character x == is on the right
 			{
 				//On Right
 				if (distance < m_RightProjectileDistance)
@@ -174,10 +181,10 @@ bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 			}
 			else
 			{
-				return false;
+				return true;
 			}
 		}
-		else if (projectile->GetBox().X > m_Box.X && projectile->GetBox().X < m_Box.X + m_Box.Width)
+		else if (projectile->GetBox().X > m_Box.X - 10 && projectile->GetBox().X < m_Box.X + m_Box.Width + 10) //certain X box == is above
 		{
 			if (distance < m_FrontProjectileDistance)
 			{
@@ -188,9 +195,8 @@ bool QLearningCharacter::GetInViewInfo(const Projectile* projectile)
 			return true;
 		}
 	}
-	return false;
+	return true;
 }
-
 bool QLearningCharacter::GetInViewInfo(GameStruct::Box enemyBox)
 {
 	int aiCenter{ m_Box.GetCenter().X };
@@ -201,7 +207,7 @@ bool QLearningCharacter::GetInViewInfo(GameStruct::Box enemyBox)
 		return true;
 	}
 
-	return false;
+	return true;
 }
 
 
@@ -213,8 +219,9 @@ bool QLearningCharacter::Shoot()
 }
 bool QLearningCharacter::hasFired()
 {
-	if (m_pQlearning->Output() == 2)
+	if (m_pQlearning->Output() == 3 && m_pShootDelay->IsDone())
 	{
+		m_pShootDelay->Reset();
 		return true;
 	}
 	return false;
@@ -240,10 +247,16 @@ bool QLearningCharacter::ResetInfo()
 	m_FrontProjectilePos = GameStruct::point{ m_Box.GetCenter().X, 0};
 	m_IsEnemyInSight			= false;
 	m_FrontProjectileDistance	= m_Box.Y;
-	m_LeftProjectileDistance	= halfGameWidht;
-	m_RightProjectileDistance	= halfGameWidht;
+
+	m_LeftProjectileDistance	= m_Box.X + m_Box.Width;
+	m_RightProjectileDistance	= GAME_ENGINE->GetGameWidth() - m_Box.X + m_Box.Width;
 
 	m_HasReceivedInfo = false;
 
 	return true;
+}
+
+void QLearningCharacter::SetBaseNeuralNetwork(NeuralNetwork baseNeuralNetwork)
+{
+	m_pQlearning->SetNeuralNetworkWeights(baseNeuralNetwork.GetConnections());
 }

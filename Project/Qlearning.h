@@ -5,6 +5,7 @@
 
 #include "NeuralNetwork.h"
 #include "GameEngine.h"
+#include "Delay.h"
 
 class Qlearning
 {
@@ -23,10 +24,11 @@ public:
 		return *m_pNeuralNetwork;
 	}
 
+	void SetNeuralNetworkWeights( std::vector<Connection*> connections );
 
 	int BellmanEquation(int reward);
 
-	bool ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight);
+	bool ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight, Delay& shootDelay);
 
 	int Output() const;
 
@@ -48,7 +50,8 @@ private:
 		rightDistance	= 2,
 		shipX			= 3,
 		frontX			= 4,
-		EnemyInSight	= 5
+		EnemyInSight	= 5,
+		ShootDelay		= 6
 	};
 
 

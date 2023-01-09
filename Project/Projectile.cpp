@@ -27,8 +27,8 @@ bool Projectile::Draw() const
 
 bool Projectile::Tick(float deltaTime)
 {
-	m_Box.Y += m_Direction.Y * m_Speed * deltaTime;
-	m_Box.X += m_Direction.X * m_Speed * deltaTime;
+	m_Box.Y += m_Direction.Y * m_Speed * GAME_ENGINE->GetGameSpeed() * deltaTime;
+	m_Box.X += m_Direction.X * m_Speed * GAME_ENGINE->GetGameSpeed() * deltaTime;
 
 	return true;
 }

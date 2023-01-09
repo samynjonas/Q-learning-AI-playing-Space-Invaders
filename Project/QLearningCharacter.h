@@ -3,7 +3,10 @@
 #include "Qlearning.h"
 #include "Projectile.h"
 
+#include "Delay.h"
+
 #include "FileWriter.h"
+
 
 class QLearningCharacter : public Character
 {
@@ -19,6 +22,12 @@ public:
 	QLearningCharacter& operator=(const QLearningCharacter& other) = delete;
 	QLearningCharacter& operator=(QLearningCharacter&& other)	noexcept = delete;
 
+	NeuralNetwork GetNeuralNetwork() const
+	{
+		return m_pQlearning->GetNeuralNetwork();
+	}
+	void SetBaseNeuralNetwork( NeuralNetwork baseNeuralNetwork );
+
 	bool MoveLeft();
 	bool MoveRight();
 	bool Shoot();
@@ -26,12 +35,21 @@ public:
 	bool Tick(float deltaTime) override;
 	bool Draw() const override;
 
+	bool DrawNeuralNetwork() const;
+
 	bool hasFired() override;
+	
+	int GetLifeTime() const
+	{
+		return m_LifeTime;
+	}
 
 	bool GetInViewInfo(const Projectile* projectile);
 	bool GetInViewInfo(GameStruct::Box enemyBox);
 
 private:
+	int m_LifeTime;
+
 	bool m_SimulateFire;
 	
 	int m_ViewRange;
@@ -43,11 +61,11 @@ private:
 	float m_RightProjectileDistance;
 	bool  m_IsEnemyInSight;
 
-
 	bool m_HasReceivedInfo; 
 	
 	unique_ptr<Qlearning> m_pQlearning;
-	unique_ptr<FileWriter> m_pFileWriter;
+
+	unique_ptr<Delay> m_pShootDelay;
 
 
 	bool HandleMovement(float deltaTime) override;

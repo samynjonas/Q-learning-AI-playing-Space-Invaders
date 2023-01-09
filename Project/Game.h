@@ -21,6 +21,10 @@
 
 #include "QLearningCharacter.h"
 
+#include "Episode.h"
+
+#include <map>
+#include <algorithm>
 
 
 
@@ -66,11 +70,26 @@ private:
 	// Datamembers
 	// -------------------------
 
-	unique_ptr<Character> m_pPlayer;
-	unique_ptr<QLearningCharacter> m_pQlearningCharacter;
+	CONST INT CHARACTER_AMOUNT{ 1 };
+	int m_DrawAmount{ 100 };
+
+	float m_LifeTime{};
+	float m_AllTimeHighestLifetime{};
+	int m_Episode{};
 
 
+	bool AreAllQlearningDead() const;
+	void LoadNextEpisode();
+
+	const int BATCH_AMOUNT;
+	std::vector<unique_ptr<Episode>> m_VecBatches;
+
+
+	unique_ptr<Button>	m_BtnAmountShower;
+	unique_ptr<Button>	m_BtnGameSpeed;
+
+
+	std::vector<unique_ptr<QLearningCharacter>> m_VecQLearningCharacters;
 	unique_ptr<EnemyManager> m_pEnemyManager;
-
 	unique_ptr<ProjectileManager> m_pProjectileManager;
 };

@@ -50,8 +50,8 @@ bool BaseEnemy::hasFired()
 
 void BaseEnemy::Move(float x, float y)
 {
-	m_Box.X += x;
-	m_Box.Y += y;
+	m_Box.X += x * GAME_ENGINE->GetGameSpeed();
+	m_Box.Y += y * GAME_ENGINE->GetGameSpeed();
 }
 
 //Other types

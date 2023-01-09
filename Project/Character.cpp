@@ -51,7 +51,7 @@ bool Character::HandleMovement(float deltaTime)
 {
 	GameStruct::vector2 movementVector{ m_Controller->GetMovement().normalize() };
 
-	movementVector *= m_Speed;
+	movementVector *= m_Speed * GAME_ENGINE->GetGameSpeed();
 	movementVector *= deltaTime;
 
 	m_Box.X -= movementVector.X;
@@ -87,7 +87,7 @@ bool Character::KeepInWorld()
 		m_Box.X = 0 + 1;
 	}
 
-	if (m_Box.X + m_Box.Width > GAME_ENGINE->GetGameWidth())
+	if (m_Box.X + m_Box.Width > GAME_ENGINE->GetGameWidth() - m_Box.Width)
 	{
 		m_Box.X = GAME_ENGINE->GetGameWidth() - m_Box.Width - 15;
 	}

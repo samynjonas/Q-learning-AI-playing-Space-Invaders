@@ -162,13 +162,14 @@ public:
 	int			GetGameWidth()	const	{ return m_GameWidth; }
 	int			GetGameHeight()	const	{ return m_GameHeight; }
 	int			GetGameScore()	const	{ return m_GameScore; }
+	int			GetGameSpeed()	const	{ return m_GameSpeedMultiplyer; }
 
 	// Custom added Mutator Methods
 	void		SetGameWidth(int width)		{ m_GameWidth = width; }
 	void		SetGameHeight(int height)	{ m_GameHeight = height; }
 	void		SetGameScore(int score)		{ m_GameScore = score; }
 	void		AddToGameScore(int score)	{ m_GameScore += score; }
-
+	void		SetGameSpeed(int speed)		{ m_GameSpeedMultiplyer = speed; }
 
 	// Public Mutator Methods	
 	void		SetTitle(const tstring& titleRef);							// SetTitle automatically sets the window class name to the same name as the title 
@@ -213,6 +214,7 @@ private:
 	//custom added Member Variables
 	int m_GameWidth{}, m_GameHeight{};
 	int m_GameScore{ 0 };
+	int m_GameSpeedMultiplyer{ 1 };
 
 	// Draw assistance variables
 	HDC					m_HdcDraw{};

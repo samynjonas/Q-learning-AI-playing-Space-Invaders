@@ -129,6 +129,9 @@
     <ClCompile Include="FileReader.cpp">
       <Filter>Project Files\File Handling\FileReader</Filter>
     </ClCompile>
+    <ClCompile Include="Episode.cpp">
+      <Filter>Project Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AbstractGame.h">
@@ -199,6 +202,9 @@
     </ClInclude>
     <ClInclude Include="FileReader.h">
       <Filter>Project Files\File Handling\FileReader</Filter>
+    </ClInclude>
+    <ClInclude Include="Episode.h">
+      <Filter>Project Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

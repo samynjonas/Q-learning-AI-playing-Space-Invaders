@@ -2,6 +2,7 @@
 #include "GameStruct.h"
 #include "GameEngine.h"
 
+#include <random>
 #include <vector>
 
 struct Neuron
@@ -93,9 +94,10 @@ struct Weight
 
 
 		GAME_ENGINE->DrawLine(neuronOne->center().X, neuronOne->center().Y, neuronTwo->center().X, neuronTwo->center().Y);
-	}
+	}	
 
 	float value{ static_cast<float>(rand() % 200 - 100) / 100 };
+	int x{};
 };
 
 struct Connection
@@ -161,11 +163,33 @@ public:
 	void Update();
 	void Render() const;
 
+	NeuralNetwork MergeAndMutate(NeuralNetwork other);
+
 	std::vector<Connection*> GetConnections() const
 	{
 		return m_VecConnections;
 	}
+	void SetConnections(std::vector<Connection*> vecConnections)
+	{
+		//taking over neuralNetwork
+		for (int connectionIndex{0}; connectionIndex < m_VecConnections.size(); connectionIndex++)
+		{
+			if (connectionIndex >= vecConnections.size())
+			{
+				break;
+			}
+			for (int weightIndex{ 0 }; weightIndex < m_VecConnections[connectionIndex]->m_VecWeights.size(); weightIndex++)
+			{
+				if (weightIndex >= vecConnections[connectionIndex]->m_VecWeights.size())
+				{
+					break;
+				}
 
+				m_VecConnections[connectionIndex]->m_VecWeights[weightIndex]->value = vecConnections[connectionIndex]->m_VecWeights[weightIndex]->value;
+			}			
+		}
+
+	}
 
 	Layer* GetInputLayer()
 	{
@@ -185,6 +209,7 @@ public:
 		Output = 2
 	};
 private:
+
 
 	GameStruct::Box m_Screen;
 	std::vector<Layer*> m_VecLayers;

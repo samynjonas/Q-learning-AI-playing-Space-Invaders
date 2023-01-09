@@ -13,6 +13,10 @@ public:
 	bool Reset();
 
 	bool SetDelay(float delay);
+	float GetDelay() const
+	{
+		return m_Delay;
+	}
 
 	float GetCounter() const;
 
