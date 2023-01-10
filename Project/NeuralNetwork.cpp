@@ -2,7 +2,7 @@
 
 
 NeuralNetwork::NeuralNetwork()
-	: m_Screen{ GameStruct::Box{GAME_ENGINE->GetGameWidth(), 0, GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth(), 250}}
+	: m_Screen{ GameStruct::Box{GAME_ENGINE->GetGameWidth(), 0, GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth(), 500}}
 {
 	m_VecLayers.push_back(new Layer(RGB( 0,		255,	0	))); //Input
 	m_VecLayers.push_back(new Layer(RGB( 255,	0,		0	))); //Hidden
@@ -16,15 +16,21 @@ NeuralNetwork::NeuralNetwork()
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 
 
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
+
 
 	
-	//m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Dont move
 	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron(); //Go left
 	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Go Right
 	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Shoot

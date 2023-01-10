@@ -83,7 +83,7 @@ private:
 	void RenderText() const;
 
 
-	const int BATCH_AMOUNT{ 100 };
+	const int BATCH_AMOUNT{ 500 };
 	std::vector<unique_ptr<Episode>> m_VecBatches;
 
 	unique_ptr<FileWriter> m_pFileWriter;

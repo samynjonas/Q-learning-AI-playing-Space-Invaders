@@ -152,10 +152,7 @@ void Game::Paint(RECT rect)
 			batch->Render(true);
 			break;
 		}
-
 	}
-	//m_VecBatches[0]->Render(true);
-
 
 	RenderText();
 }
@@ -165,12 +162,12 @@ void Game::RenderText() const
 	//Drawing text
 	GAME_ENGINE->SetColor(RGB(50, 50, 50));
 	int boxWidth{ GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth() };
-	GAME_ENGINE->FillRect(GAME_ENGINE->GetGameWidth(), 250, boxWidth, GAME_ENGINE->GetGameHeight());
 
 	int textOffset{ 25 };
-	int textPos{ 250 };
+	int textPos{ 500 };
 	int CategoryYOffse{ 75 };
 
+	GAME_ENGINE->FillRect(GAME_ENGINE->GetGameWidth(), textPos, boxWidth, GAME_ENGINE->GetGameHeight());
 
 	int currentScore{};
 	int activeBatch{};
@@ -290,9 +287,9 @@ void Game::LoadNextEpisode()
 	NeuralNetwork highest{ m_VecBatches[mapScoreEpisodeIndex[vecHighscores[0]]]->GetNeuralNetwork() };
 	NeuralNetwork second{ m_VecBatches[mapScoreEpisodeIndex[vecHighscores[1]]]->GetNeuralNetwork() };
 
-	NeuralNetwork newNeural{ highest.MergeAndMutate(second) };
+	//NeuralNetwork newNeural{ highest.MergeAndMutate(second) };
 
-	m_pFileWriter->Write(m_Episode, newNeural.GetConnections(), highestScore);
+	m_pFileWriter->Write(m_Episode, highest.GetConnections(), highestScore);
 
 	m_VecBatches.clear();
 
@@ -304,7 +301,7 @@ void Game::LoadNextEpisode()
 
 	for (auto& batch : m_VecBatches)
 	{
-		batch->SetStartNeuralNetwork(newNeural);
+		batch->SetStartNeuralNetwork(highest.MergeAndMutate(second));
 	}
 }
 

@@ -53,10 +53,7 @@ void Episode::Tick()
 	m_pProjectileManager->HitCheck(*m_QlearningCharacter);
 
 
-	for (const Projectile* projectile : m_pProjectileManager->GetProjectiles())
-	{
-		m_QlearningCharacter->GetInViewInfo(projectile);
-	}
+	m_QlearningCharacter->GetAllBullets(m_pProjectileManager->GetProjectiles());
 	
 	m_pEnemyManager->Tick();
 	for (auto& enemy : m_pEnemyManager->GetEnemyVector())

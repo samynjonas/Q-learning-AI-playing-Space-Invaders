@@ -44,7 +44,8 @@ public:
 		return m_LifeTime;
 	}
 
-	bool GetInViewInfo(const Projectile* projectile);
+	bool GetAllBullets(std::vector<Projectile*> enemyBullets);
+
 	bool GetInViewInfo(GameStruct::Box enemyBox);
 	bool GetEpisodeTime(GameStruct::point episodeTime)
 	{
@@ -59,12 +60,10 @@ private:
 	
 	int m_ViewRange;
 	
-	GameStruct::point m_FrontProjectilePos;
-	
+	GameStruct::point m_BulletOnePos;
+	GameStruct::point m_BulletTwoPos;
+	GameStruct::point m_BulletThreePos;
 	GameStruct::point m_EpisodeTime;
-	float m_FrontProjectileDistance;
-	float m_LeftProjectileDistance;
-	float m_RightProjectileDistance;
 	bool  m_IsEnemyInSight;
 
 	bool m_HasReceivedInfo; 

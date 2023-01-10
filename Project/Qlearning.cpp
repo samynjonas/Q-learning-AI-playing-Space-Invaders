@@ -48,9 +48,9 @@ bool Qlearning::ReadyNewEpisode()
 
 int Qlearning::Output() const
 {
-	float leftValue{ m_pNeuralNetwork->GetInputLayer()->vecNeurons[0]->value };
-	float rightValue{ m_pNeuralNetwork->GetInputLayer()->vecNeurons[1]->value };
-	float shootValue{ m_pNeuralNetwork->GetInputLayer()->vecNeurons[2]->value };
+	float leftValue{	m_pNeuralNetwork->GetInputLayer()->vecNeurons[0]->value };
+	float rightValue{	m_pNeuralNetwork->GetInputLayer()->vecNeurons[1]->value };
+	float shootValue{	m_pNeuralNetwork->GetInputLayer()->vecNeurons[2]->value };
 
 
 	if (rightValue > leftValue)
@@ -72,35 +72,53 @@ int Qlearning::Output() const
 	return 0;
 }
 
-bool Qlearning::ReceiveInfo(float frontDistance, float leftDistance, float rightDistance, float shipXvalue, float frontProjectileXValue, bool enemyInSight, Delay& shootDelay, GameStruct::point episodeTime)
-{	
-	//Getting the max value
-	float maxFrontDistance	= GAME_ENGINE->GetGameHeight();
-	float maxLeftDistance	= GAME_ENGINE->GetGameWidth();
-	float maxRightDistance	= GAME_ENGINE->GetGameWidth();
-	float maxShipXValue		= GAME_ENGINE->GetGameWidth();
-	float maxFrontXValue	= GAME_ENGINE->GetGameWidth();
-	float maxShootDelay		= shootDelay.GetDelay();
-	float maxEpisodeTime	= episodeTime.Y;
 
-	//Scaling down to percentage
-	float scaledFrontDistance	= frontDistance / maxFrontDistance;
-	float scaledLeftDistance	= leftDistance	/ maxLeftDistance;
-	float scaledRightDistance	= rightDistance / maxRightDistance;
-	float scaledShipXvalue		= shipXvalue	/ maxShipXValue;
-	float scaledFrontXValue		= frontProjectileXValue / maxFrontXValue;
-	float scaledShootDelay		= shootDelay.GetCounter() / maxShootDelay;
-	float scaledEpisodeTime		= episodeTime.X / maxEpisodeTime;
+bool Qlearning::ReceiveInfo(GameStruct::point bulletOne, GameStruct::point bulletTwo, GameStruct::point bulletThree, float shipXvalue, float distanceLeftBorder, float distanceRightBorder, bool enemyInSight, Delay& shootDelay, GameStruct::point episodeTime)
+{
+	//Max values
+	float maxBulletOneX				= GAME_ENGINE->GetGameWidth();
+	float maxBulletOneY				= GAME_ENGINE->GetGameHeight();
+	float maxBulletTwoX				= GAME_ENGINE->GetGameWidth();
+	float maxBulletTwoY				= GAME_ENGINE->GetGameHeight();
+	float maxBulletThreeX			= GAME_ENGINE->GetGameWidth();
+	float maxBulletThreeY			= GAME_ENGINE->GetGameHeight();
 
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[0]->value = scaledFrontDistance;
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[1]->value = scaledLeftDistance;
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[2]->value = scaledRightDistance;
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[3]->value = scaledShipXvalue;
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[4]->value = scaledFrontXValue;
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[5]->value = enemyInSight;
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[6]->value = scaledShootDelay;
-	m_pNeuralNetwork->GetInputLayer()->vecNeurons[7]->value = scaledEpisodeTime;
+	float maxShipX					= GAME_ENGINE->GetGameWidth();
+	float maxDistanceLeftBorder		= GAME_ENGINE->GetGameWidth();
+	float maxDistanceRightBorder	= GAME_ENGINE->GetGameWidth();
+		  
+	float maxShootDelay				= shootDelay.GetDelay();
+	float maxEpisodeTime			= episodeTime.Y;
 
+
+	//Scaled values
+	float scaledBulletOneX			= bulletOne.X	/ maxBulletOneX;
+	float scaledBulletOneY			= bulletOne.Y	/ maxBulletOneY;
+	float scaledBulletTwoX			= bulletTwo.X	/ maxBulletTwoX;
+	float scaledBulletTwoY			= bulletTwo.Y	/ maxBulletTwoY;
+	float scaledBulletThreeX		= bulletThree.X / maxBulletThreeX;
+	float scaledBulletThreeY		= bulletThree.Y / maxBulletThreeY;
+		  
+	float scaledShipX				= shipXvalue			/ maxShipX;
+	float scaledDistanceLeftBorder	= distanceLeftBorder	/ maxDistanceLeftBorder;
+	float scaledDistanceRightBorder = distanceRightBorder	/ maxDistanceRightBorder;
+		  
+	float scaledShootDelay			= shootDelay.GetCounter() / maxShootDelay;
+	float scaledEpisodeTime			= episodeTime.X / maxEpisodeTime;
+
+	//Sent to neural network
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[0]->value = scaledBulletOneX;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[1]->value = scaledBulletOneY;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[2]->value = scaledBulletTwoX;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[3]->value = scaledBulletTwoY;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[4]->value = scaledBulletThreeX;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[5]->value = scaledBulletThreeY;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[6]->value = scaledShipX;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[7]->value = scaledDistanceLeftBorder;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[8]->value = scaledDistanceRightBorder;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[9]->value = enemyInSight;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[10]->value = scaledShootDelay;
+	m_pNeuralNetwork->GetInputLayer()->vecNeurons[11]->value = scaledEpisodeTime;
 
 	return true;
 }
