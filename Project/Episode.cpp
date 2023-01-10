@@ -6,7 +6,7 @@
 Episode::Episode()
 	: m_Score{ 0 }
 	, m_LifeTime{ 0 }
-	, m_MaxLifeTime{ 7500 }
+	, m_MaxLifeTime{ 3000 }
 {
 	m_pEnemyManager = make_unique<EnemyManager>();
 	m_pProjectileManager = make_unique<ProjectileManager>();
@@ -46,7 +46,6 @@ void Episode::Tick()
 
 	if (m_pProjectileManager->Shoot(*m_QlearningCharacter) == true)
 	{
-		m_MaxLifeTime += 500;
 		m_Score += 1;
 	}
 
@@ -65,16 +64,11 @@ void Episode::Tick()
 			{
 				m_Score += enemy->GetScoring();
 
-				m_MaxLifeTime += 2000;
+				m_MaxLifeTime += 1500;
 			}
 
 			m_QlearningCharacter->GetInViewInfo(enemy->GetBox());
 		}
-	}
-
-	if (m_LifeTime >= m_MaxLifeTime)
-	{
-		m_Score -= 2;
 	}
 
 	if (m_pEnemyManager->GetEnemyVector().empty())
@@ -107,7 +101,7 @@ bool Episode::IsFinished() const
 
 int Episode::GetScore() const
 {
-	return m_Score;
+	return m_Score + (m_LifeTime / 1000);
 }
 
 NeuralNetwork Episode::GetNeuralNetwork() const
