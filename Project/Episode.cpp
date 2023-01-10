@@ -6,7 +6,7 @@
 Episode::Episode()
 	: m_Score{ 0 }
 	, m_LifeTime{ 0 }
-	, m_MaxLifeTime{ 3000 }
+	, m_MaxLifeTime{ 1000000000 }
 {
 	m_pEnemyManager = make_unique<EnemyManager>();
 	m_pProjectileManager = make_unique<ProjectileManager>();
