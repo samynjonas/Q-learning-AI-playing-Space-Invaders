@@ -27,6 +27,7 @@
 #include <algorithm>
 
 #include "FileWriter.h"
+#include "FileReader.h"
 
 
 
@@ -87,5 +88,6 @@ private:
 	std::vector<unique_ptr<Episode>> m_VecBatches;
 
 	unique_ptr<FileWriter> m_pFileWriter;
+	unique_ptr<FileReader> m_pFileReader;
 
 };

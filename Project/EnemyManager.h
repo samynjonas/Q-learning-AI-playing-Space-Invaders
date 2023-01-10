@@ -18,6 +18,9 @@ public:
 private:
 	int m_EnemyCount;
 
+	int m_frameCounter{ 0 };
+	const int SKIPFRAMES{ 3 };
+
 	const int m_RowAmount;
 	const int m_CollumAmount;
 

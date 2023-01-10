@@ -116,9 +116,9 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 	if (m_KeepInWorld)
 	{
-		//KeepInWorld();
+		KeepInWorld();
 
-		if (m_Box.X < 0)
+		/*if (m_Box.X < 0)
 		{
 			m_IsDead = true;
 		}
@@ -126,7 +126,7 @@ bool QLearningCharacter::Tick(float deltaTime)
 		if (m_Box.X + m_Box.Width > GAME_ENGINE->GetGameWidth())
 		{
 			m_IsDead = true;
-		}
+		}*/
 
 	}
 

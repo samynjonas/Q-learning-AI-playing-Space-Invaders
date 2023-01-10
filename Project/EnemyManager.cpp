@@ -27,7 +27,18 @@ EnemyManager::~EnemyManager()
 
 void EnemyManager::Tick()
 {
+	++m_frameCounter;
 	static int moving{ 1 };
+
+
+	bool skipFrame{ true };
+
+	if (m_frameCounter >= SKIPFRAMES)
+	{
+		m_frameCounter = 0;
+		skipFrame = false;
+	}
+
 
 	if (moving > 0)
 	{
@@ -46,8 +57,11 @@ void EnemyManager::Tick()
 		}
 	}
 
+	if (skipFrame == false)
+	{
+		m_SpawnBox.X += moving;
+	}
 
-	m_SpawnBox.X += moving;
 
 	for (auto& enemy : m_VecEnemies)
 	{
@@ -55,7 +69,10 @@ void EnemyManager::Tick()
 		{
 			enemy->Tick(GAME_ENGINE->GetFrameDelay());
 
-			enemy->Move(moving, 0);
+			if (skipFrame == false)
+			{
+				enemy->Move(moving, 0);
+			}
 
 			if (enemy->IsDead())
 			{

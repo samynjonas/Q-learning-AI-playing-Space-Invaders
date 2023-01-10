@@ -49,6 +49,7 @@ void Game::Initialize(HINSTANCE hInstance)
 	}
 
 	m_pFileWriter = make_unique<FileWriter>("..\\NeuralNetwork");
+	m_pFileReader = make_unique<FileReader>("..\\NeuralNetwork");
 
 }
 
@@ -61,6 +62,13 @@ void Game::Start()
 	m_BtnGameSpeed->AddActionListener(this);
 	m_BtnGameSpeed->Show();*/
 
+	m_Episode = 1985;
+	NeuralNetwork readNeuralNetwork = m_pFileReader->GetNeuralNetworkOfEpisode(m_Episode);
+
+	for (auto& batch : m_VecBatches)
+	{
+		batch->SetStartNeuralNetwork(readNeuralNetwork);
+	}
 }
 
 void Game::End()
@@ -155,6 +163,35 @@ void Game::Paint(RECT rect)
 	}
 
 	RenderText();
+	
+	const int batchSQRTamount{ static_cast<int>(sqrt(static_cast<int>(m_VecBatches.size()))) };
+	const int batchXoffset{ (GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth()) / (batchSQRTamount + 1) };
+	const int batchYoffset{ batchXoffset };
+	const GameStruct::point drawPosition{ GAME_ENGINE->GetGameWidth(), GAME_ENGINE->GetHeight() - 550};
+
+	GAME_ENGINE->SetColor(RGB(255, 100, 100));
+	for (int Yindex{}; Yindex < batchSQRTamount; ++Yindex)
+	{
+		for (int xIndex = 0; xIndex < batchSQRTamount; xIndex++)
+		{
+			int batchIndex{ xIndex + Yindex * batchSQRTamount };
+			if (batchIndex < m_VecBatches.size())
+			{
+				if (m_VecBatches[batchIndex]->IsFinished())
+				{
+					GAME_ENGINE->SetColor(RGB(255, 100, 100));
+				}
+				else
+				{
+					GAME_ENGINE->SetColor(RGB(100, 255, 100));
+				}
+			}
+			GAME_ENGINE->FillRect(drawPosition.X + (batchXoffset * (xIndex + 1)), drawPosition.Y + (batchYoffset * (Yindex + 1)), 10, 10);
+			//GAME_ENGINE->FillRect(0, 0, 10, 10);
+
+		}
+	}
+
 }
 
 void Game::RenderText() const
@@ -163,11 +200,11 @@ void Game::RenderText() const
 	GAME_ENGINE->SetColor(RGB(50, 50, 50));
 	int boxWidth{ GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth() };
 
-	int textOffset{ 25 };
-	int textPos{ 500 };
-	int CategoryYOffse{ 75 };
+	int textOffset{ 15 };
+	int textPos{ 800 };
+	int CategoryYOffse{ 50 };
 
-	GAME_ENGINE->FillRect(GAME_ENGINE->GetGameWidth(), textPos, boxWidth, GAME_ENGINE->GetGameHeight());
+	GAME_ENGINE->FillRect(GAME_ENGINE->GetGameWidth(), 500, boxWidth, GAME_ENGINE->GetGameHeight());
 
 	int currentScore{};
 	int activeBatch{};

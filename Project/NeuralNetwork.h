@@ -96,7 +96,7 @@ struct Weight
 		GAME_ENGINE->DrawLine(neuronOne->center().X, neuronOne->center().Y, neuronTwo->center().X, neuronTwo->center().Y);
 	}	
 
-	float value{ static_cast<float>(rand() % 200 - 100) / 100 };
+	float value{ static_cast<float>(rand() % 20000 - 10000) / 10000 };
 	int x{};
 };
 

@@ -92,12 +92,12 @@ bool Qlearning::ReceiveInfo(GameStruct::point bulletOne, GameStruct::point bulle
 
 
 	//Scaled values
-	float scaledBulletOneX			= bulletOne.X	/ maxBulletOneX;
-	float scaledBulletOneY			= bulletOne.Y	/ maxBulletOneY;
-	float scaledBulletTwoX			= bulletTwo.X	/ maxBulletTwoX;
-	float scaledBulletTwoY			= bulletTwo.Y	/ maxBulletTwoY;
-	float scaledBulletThreeX		= bulletThree.X / maxBulletThreeX;
-	float scaledBulletThreeY		= bulletThree.Y / maxBulletThreeY;
+	float scaledBulletOneX			= bulletOne.X			/ maxBulletOneX;
+	float scaledBulletOneY			= bulletOne.Y			/ maxBulletOneY;
+	float scaledBulletTwoX			= bulletTwo.X			/ maxBulletTwoX;
+	float scaledBulletTwoY			= bulletTwo.Y			/ maxBulletTwoY;
+	float scaledBulletThreeX		= bulletThree.X			/ maxBulletThreeX;
+	float scaledBulletThreeY		= bulletThree.Y			/ maxBulletThreeY;
 		  
 	float scaledShipX				= shipXvalue			/ maxShipX;
 	float scaledDistanceLeftBorder	= distanceLeftBorder	/ maxDistanceLeftBorder;

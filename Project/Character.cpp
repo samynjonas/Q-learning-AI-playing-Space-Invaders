@@ -87,9 +87,9 @@ bool Character::KeepInWorld()
 		m_Box.X = 0 + 1;
 	}
 
-	if (m_Box.X + m_Box.Width > GAME_ENGINE->GetGameWidth() - m_Box.Width)
+	if (m_Box.X + m_Box.Width > GAME_ENGINE->GetGameWidth())
 	{
-		m_Box.X = GAME_ENGINE->GetGameWidth() - m_Box.Width - 15;
+		m_Box.X = GAME_ENGINE->GetGameWidth() - m_Box.Width - 1;
 	}
 
 	if (m_Box.Y < 0)

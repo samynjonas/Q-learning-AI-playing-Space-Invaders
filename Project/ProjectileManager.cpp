@@ -53,7 +53,7 @@ bool ProjectileManager::Shoot(Character& character)
 {
 	if (character.hasFired())
 	{
-		m_pProjectiles.push_back(new Projectile(GameStruct::Box{ character.GetPoint().X + character.GetBox().Width / 2, character.GetPoint().Y, 5, 5 }, 1, character.GetForwardVector()));
+		m_pProjectiles.push_back(new Projectile(GameStruct::Box{ character.GetPoint().X + character.GetBox().Width / 2, character.GetPoint().Y, 5, 5 }, 3, character.GetForwardVector()));
 		m_pProjectiles.back()->AddIgnoreID(character.GetID());
 
 		return true;
