@@ -66,10 +66,10 @@ void EnemyManager::Tick()
 		}
 	}
 
-	if (skipFrame == false)
+	/*if (skipFrame == false)
 	{
 		m_SpawnBox.X += moving;
-	}
+	}*/
 
 
 	for (auto& enemy : m_VecEnemies)
