@@ -56,8 +56,11 @@ void Game::Initialize(HINSTANCE hInstance)
 void Game::Start()
 {
 	// Insert the code that needs to be executed at the start of the project
+	m_pKillTimer = make_unique<Button>(_T("Kill Timer"));
+	m_pKillTimer->AddActionListener(this);
+	m_pKillTimer->Show();
 
-	m_Episode = 167;
+	m_Episode = 234;
 	NeuralNetwork readNeuralNetwork = m_pFileReader->GetNeuralNetworkOfEpisode(m_Episode);
 
 	for (auto& batch : m_VecBatches)
@@ -216,6 +219,9 @@ void Game::RenderText() const
 	GAME_ENGINE->DrawString(_T("Active batch:"), GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 0);
 	GAME_ENGINE->DrawString(batchBuffer,		 GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 0 + textOffset);
 
+	m_pKillTimer->SetBounds(GAME_ENGINE->GetGameWidth() + textOffset + 200, textPos + CategoryYOffse * 0, 80, 25);
+
+
 	wstring scoreBuffer = std::to_wstring(currentScore);
 	GAME_ENGINE->DrawString(_T("Score"), GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 1);
 	GAME_ENGINE->DrawString(scoreBuffer, GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 1 + textOffset);
@@ -330,10 +336,9 @@ void Game::LoadNextEpisode()
 
 void Game::CallAction(Caller* callerPtr)
 {
-	/*static int currentSpeed{ GAME_ENGINE->GetGameSpeed() };
-	if (callerPtr == m_BtnGameSpeed.get())
+	static int currentSpeed{ GAME_ENGINE->GetGameSpeed() };
+	if (callerPtr == m_pKillTimer.get())
 	{
-		GAME_ENGINE->SetGameSpeed( GAME_ENGINE->GetGameSpeed() + 1.f );
-	}*/
-
+		GAME_ENGINE->SetKillTimer( !GAME_ENGINE->GetKillTimer() );
+	}
 }

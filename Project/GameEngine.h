@@ -163,6 +163,7 @@ public:
 	int			GetGameHeight()	const	{ return m_GameHeight; }
 	int			GetGameScore()	const	{ return m_GameScore; }
 	int			GetGameSpeed()	const	{ return m_GameSpeedMultiplyer; }
+	bool		GetKillTimer()  const	{ return m_UseKillTimer; }
 
 	// Custom added Mutator Methods
 	void		SetGameWidth(int width)		{ m_GameWidth = width; }
@@ -170,6 +171,7 @@ public:
 	void		SetGameScore(int score)		{ m_GameScore = score; }
 	void		AddToGameScore(int score)	{ m_GameScore += score; }
 	void		SetGameSpeed(int speed)		{ m_GameSpeedMultiplyer = speed; }
+	void		SetKillTimer(bool use)		{ m_UseKillTimer = use; }
 
 	// Public Mutator Methods	
 	void		SetTitle(const tstring& titleRef);							// SetTitle automatically sets the window class name to the same name as the title 
@@ -215,6 +217,7 @@ private:
 	int m_GameWidth{}, m_GameHeight{};
 	int m_GameScore{ 0 };
 	int m_GameSpeedMultiplyer{ 1 };
+	bool m_UseKillTimer{ true };
 
 	// Draw assistance variables
 	HDC					m_HdcDraw{};

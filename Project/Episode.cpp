@@ -37,7 +37,12 @@ void Episode::Tick()
 {	
 	m_pProjectileManager->Tick();
 
-	m_LifeTime += GAME_ENGINE->GetFrameDelay();
+	if (GAME_ENGINE->GetKillTimer())
+	{
+		m_LifeTime += GAME_ENGINE->GetFrameDelay();
+	}
+
+
 	m_QlearningCharacter->GetEpisodeTime(GameStruct::point{ m_LifeTime, m_MaxLifeTime });
 	m_QlearningCharacter->Tick(static_cast<float>(GAME_ENGINE->GetFrameDelay()));
 

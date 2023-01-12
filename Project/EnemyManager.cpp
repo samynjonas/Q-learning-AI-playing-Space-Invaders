@@ -178,7 +178,7 @@ int EnemyManager::GetSmallestX()
 		return 0;
 	}
 
-	int minX{ m_VecEnemies.back()->GetBox().X};
+	int minX{ GAME_ENGINE->GetGameWidth() };
 
 	for (size_t index = 0; index < m_VecEnemies.size(); index++)
 	{
@@ -201,7 +201,7 @@ int EnemyManager::GetBiggestX()
 		return 0;
 	}
 
-	int maxX{ m_VecEnemies[0]->GetBox().X };
+	int maxX{ 0 };
 
 	for (size_t index = 0; index < m_VecEnemies.size(); index++)
 	{

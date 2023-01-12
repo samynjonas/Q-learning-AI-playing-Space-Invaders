@@ -90,4 +90,6 @@ private:
 	unique_ptr<FileWriter> m_pFileWriter;
 	unique_ptr<FileReader> m_pFileReader;
 
+	unique_ptr<Button> m_pKillTimer;
+
 };
