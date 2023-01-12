@@ -13,6 +13,11 @@ public:
 
 		}
 
+		int distance(GameStruct::point other) const
+		{
+			return sqrt(pow(other.X - X, 2) + pow(other.Y - Y, 2) * 1.0);
+		}
+
 		int X{};
 		int Y{};
 

@@ -20,8 +20,14 @@ NeuralNetwork::NeuralNetwork()
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
 
 
+	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
 	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();

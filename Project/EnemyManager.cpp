@@ -14,14 +14,19 @@ EnemyManager::EnemyManager()
 	{
 		for (int colIndex = 0; colIndex < m_CollumAmount; colIndex++)
 		{
-			m_VecEnemies.push_back(make_unique<BaseEnemy>(GameStruct::Box{ m_SpawnBox.X + xOffset * (colIndex + 1) - m_EnemyBox.Width / 2, m_SpawnBox.Y + yOffset * (rowIndex + 1) - m_EnemyBox.Height / 2, m_EnemyBox.Width, m_EnemyBox.Height }, GameStruct::vector2{ 0, 1 }));
+			m_VecEnemies.push_back(new BaseEnemy(GameStruct::Box{ m_SpawnBox.X + xOffset * (colIndex + 1) - m_EnemyBox.Width / 2, m_SpawnBox.Y + yOffset * (rowIndex + 1) - m_EnemyBox.Height / 2, m_EnemyBox.Width, m_EnemyBox.Height }, GameStruct::vector2{ 0, 1 }));
 		}
 	}
 }
 
 EnemyManager::~EnemyManager()
 {
-
+	for (int index = 0; index < m_VecEnemies.size(); index++)
+	{
+		delete m_VecEnemies[index];
+		m_VecEnemies[index] = nullptr;
+	}
+	m_VecEnemies.clear();
 }
 
 
@@ -76,11 +81,19 @@ void EnemyManager::Tick()
 
 			if (enemy->IsDead())
 			{
-				//Release ptr
-				enemy.release();
 			}
 
 		}
+	}
+
+	for (int index = 0; index < m_VecEnemies.size(); index++)
+	{
+		if (m_VecEnemies[index]->IsDead())
+		{
+			m_VecEnemies[index] = m_VecEnemies.back();
+			m_VecEnemies.pop_back();
+		}
+
 	}
 
 	ReleaseNullptr();
@@ -98,7 +111,7 @@ void EnemyManager::Render() const
 	}
 }
 
-std::vector<unique_ptr<BaseEnemy>>& EnemyManager::GetEnemyVector()
+std::vector<BaseEnemy*>& EnemyManager::GetEnemyVector()
 {
 	return m_VecEnemies;
 }

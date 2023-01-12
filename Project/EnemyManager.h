@@ -13,7 +13,7 @@ public:
 	void Tick();
 	void Render() const;
 
-	std::vector<unique_ptr<BaseEnemy>>& GetEnemyVector();
+	std::vector<BaseEnemy*>& GetEnemyVector();
 
 private:
 	int m_EnemyCount;
@@ -27,7 +27,7 @@ private:
 	GameStruct::Box m_SpawnBox;
 	const GameStruct::Box m_EnemyBox;
 
-	std::vector<unique_ptr<BaseEnemy>> m_VecEnemies;
+	std::vector<BaseEnemy*> m_VecEnemies;
 
 
 	bool ReleaseNullptr();

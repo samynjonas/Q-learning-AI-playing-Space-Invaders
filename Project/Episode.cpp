@@ -52,6 +52,7 @@ void Episode::Tick()
 	m_QlearningCharacter->GetAllBullets(m_pProjectileManager->GetProjectiles());
 	
 	m_pEnemyManager->Tick();
+	m_QlearningCharacter->GetInViewInfo(m_pEnemyManager->GetEnemyVector());
 	for (auto& enemy : m_pEnemyManager->GetEnemyVector())
 	{
 		if (enemy != nullptr)
@@ -64,7 +65,6 @@ void Episode::Tick()
 				m_MaxLifeTime += 1500;
 			}
 
-			m_QlearningCharacter->GetInViewInfo(enemy->GetBox());
 		}
 	}
 

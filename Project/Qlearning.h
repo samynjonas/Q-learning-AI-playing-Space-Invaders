@@ -28,7 +28,7 @@ public:
 
 	int BellmanEquation(int reward);
 
-	bool ReceiveInfo(GameStruct::point bulletOne, GameStruct::point bulletTwo, GameStruct::point bulletThree, float shipXvalue, float distanceLeftBorder, float distanceRightBorder, bool enemyInSight, Delay& shootDelay, GameStruct::point episodeTime);
+	bool ReceiveInfo(GameStruct::point bulletOne, GameStruct::point bulletTwo, GameStruct::point bulletThree, GameStruct::point playerPos, int maxEnemyCount, int enemyCount, GameStruct::point closestEnemy, Delay& shootDelay, GameStruct::point episodeTime);
 
 
 
@@ -47,13 +47,22 @@ private:
 	//Observation variables
 	const enum observation
 	{
-		frontDistance	= 0,
-		leftDistance	= 1,
-		rightDistance	= 2,
-		shipX			= 3,
-		frontX			= 4,
-		EnemyInSight	= 5,
-		ShootDelay		= 6
+		bulletOneX				= 0,
+		bulletOneY				= 1,
+		bulletOneDistance		= 2,
+		bulletTwoX				= 3,
+		bulletTwoY				= 4,
+		bulletTwoDistance		= 5,
+		bulletThreeX			= 6,
+		bulletThreeY			= 7,
+		bulletThreeDistance		= 8,
+		ShipX					= 9,
+		DistanceLeftBorder		= 10,
+		DistanceRightBorder		= 11,
+		DistanceClosestEnemy	= 12,
+		EnemyCount				= 13,
+		ShootDelay				= 15,
+		EpisodeTime				= 16,
 	};
 
 

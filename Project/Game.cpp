@@ -62,7 +62,7 @@ void Game::Start()
 	m_BtnGameSpeed->AddActionListener(this);
 	m_BtnGameSpeed->Show();*/
 
-	m_Episode = 2506;
+	m_Episode = 0;
 	NeuralNetwork readNeuralNetwork = m_pFileReader->GetNeuralNetworkOfEpisode(m_Episode);
 
 	for (auto& batch : m_VecBatches)

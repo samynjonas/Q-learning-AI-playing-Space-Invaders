@@ -7,6 +7,7 @@
 
 #include "FileWriter.h"
 
+#include "Enemy.h"
 
 class QLearningCharacter : public Character
 {
@@ -46,7 +47,7 @@ public:
 
 	bool GetAllBullets(std::vector<Projectile*> enemyBullets);
 
-	bool GetInViewInfo(GameStruct::Box enemyBox);
+	bool GetInViewInfo(std::vector<BaseEnemy*> enemies);
 	bool GetEpisodeTime(GameStruct::point episodeTime)
 	{
 		m_EpisodeTime = episodeTime;
@@ -63,8 +64,11 @@ private:
 	GameStruct::point m_BulletOnePos;
 	GameStruct::point m_BulletTwoPos;
 	GameStruct::point m_BulletThreePos;
+	GameStruct::point m_ClosestEnemy;
 	GameStruct::point m_EpisodeTime;
-	bool  m_IsEnemyInSight;
+	int m_EnemyCount;
+	int m_MaxEnemyCount{ 55 };
+
 
 	bool m_HasReceivedInfo; 
 	

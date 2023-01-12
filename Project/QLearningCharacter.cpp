@@ -12,6 +12,7 @@ QLearningCharacter::QLearningCharacter(GameStruct::Box box, float health, float 
 	, m_BulletOnePos{ GameStruct::point{ 0, 0 } }
 	, m_BulletTwoPos{ GameStruct::point{ 0, 0 } }
 	, m_BulletThreePos{ GameStruct::point{ 0, 0 } }
+	, m_ClosestEnemy{ GameStruct::point{ 0, 0 } }
 {
 	ResetInfo();
 }
@@ -130,7 +131,7 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 	}
 
-	m_pQlearning->ReceiveInfo(m_BulletOnePos, m_BulletTwoPos, m_BulletThreePos, m_Box.X, m_Box.X, int{GAME_ENGINE->GetGameWidth() - m_Box.X + m_Box.Width}, m_IsEnemyInSight, *m_pShootDelay, m_EpisodeTime);
+	m_pQlearning->ReceiveInfo(m_BulletOnePos, m_BulletTwoPos, m_BulletThreePos, m_Box.GetCenter(), m_MaxEnemyCount, m_EnemyCount, m_ClosestEnemy, *m_pShootDelay, m_EpisodeTime);
 
 	HandleMovement(GAME_ENGINE->GetFrameDelay());
 	
@@ -172,14 +173,19 @@ bool QLearningCharacter::GetAllBullets(std::vector<Projectile*> enemyBullets)
 }
 
 
-bool QLearningCharacter::GetInViewInfo(GameStruct::Box enemyBox)
+bool QLearningCharacter::GetInViewInfo(std::vector<BaseEnemy*> enemies)
 {
-	int aiCenter{ m_Box.GetCenter().X };
+	int distance{GAME_ENGINE->GetGameHeight()};
+	m_EnemyCount = enemies.size();
 
-	if (aiCenter > enemyBox.X && aiCenter < enemyBox.X + enemyBox.Width)
+	for (const auto& enemy : enemies)
 	{
-		m_IsEnemyInSight = true;
-		return true;
+		int checkDistance{ m_Box.GetCenter().distance(enemy->GetBox().GetCenter()) };
+		if (checkDistance < distance)
+		{
+			distance = checkDistance;
+			m_ClosestEnemy = enemy->GetBox().GetCenter();
+		}
 	}
 
 	return true;
@@ -222,8 +228,9 @@ bool QLearningCharacter::ResetInfo()
 	m_BulletOnePos		= GameStruct::point{ m_Box.GetCenter().X, 0 };
 	m_BulletTwoPos		= GameStruct::point{ m_Box.GetCenter().X, 0 };
 	m_BulletThreePos	= GameStruct::point{ m_Box.GetCenter().X, 0 };
+	m_ClosestEnemy		= GameStruct::point{ m_Box.GetCenter().X, 0 };
+	m_EnemyCount		= m_MaxEnemyCount;
 
-	m_IsEnemyInSight			= false;
 
 	m_HasReceivedInfo = false;
 
