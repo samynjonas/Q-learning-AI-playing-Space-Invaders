@@ -29,6 +29,10 @@ private:
 
 	std::vector<BaseEnemy*> m_VecEnemies;
 
+	void ReframeSpawnBox();
+
+	int GetSmallestX();
+	int GetBiggestX();
 
 	bool ReleaseNullptr();
 };

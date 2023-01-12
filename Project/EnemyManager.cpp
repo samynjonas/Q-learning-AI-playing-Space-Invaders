@@ -17,6 +17,8 @@ EnemyManager::EnemyManager()
 			m_VecEnemies.push_back(new BaseEnemy(GameStruct::Box{ m_SpawnBox.X + xOffset * (colIndex + 1) - m_EnemyBox.Width / 2, m_SpawnBox.Y + yOffset * (rowIndex + 1) - m_EnemyBox.Height / 2, m_EnemyBox.Width, m_EnemyBox.Height }, GameStruct::vector2{ 0, 1 }));
 		}
 	}
+
+	ReframeSpawnBox();
 }
 
 EnemyManager::~EnemyManager()
@@ -50,7 +52,7 @@ void EnemyManager::Tick()
 	if (moving > 0)
 	{
 		//moving right
-		if (m_SpawnBox.X + m_SpawnBox.Width - m_EnemyBox.Width >= GAME_ENGINE->GetGameWidth())
+		if (GetBiggestX() >= GAME_ENGINE->GetGameWidth())
 		{
 			moving = -SPEED;
 		}
@@ -58,7 +60,7 @@ void EnemyManager::Tick()
 	else if (moving < 0)
 	{
 		//moving left
-		if (m_SpawnBox.X + m_EnemyBox.Width < 0)
+		if (GetSmallestX() < 0)
 		{
 			moving = SPEED;
 		}
@@ -83,8 +85,8 @@ void EnemyManager::Tick()
 
 			if (enemy->IsDead())
 			{
-			}
 
+			}
 		}
 	}
 
@@ -129,4 +131,88 @@ bool EnemyManager::ReleaseNullptr()
 	}
 
 	return true;
+}
+
+void EnemyManager::ReframeSpawnBox()
+{
+	if (m_VecEnemies.empty())
+	{
+		return;
+	}
+
+	int minX{ m_VecEnemies[0]->GetBox().X };
+	int maxX{ m_VecEnemies[0]->GetBox().X };
+
+	for (size_t index = 0; index < m_VecEnemies.size(); index++)
+	{
+		if (m_VecEnemies[index]->IsDead() == false)
+		{
+			if (m_VecEnemies[index]->GetBox().X < minX)
+			{
+				minX = m_VecEnemies[index]->GetBox().X;
+			}
+
+			if (m_VecEnemies[index]->GetBox().X > maxX)
+			{
+				maxX = m_VecEnemies[index]->GetBox().X;
+			}
+
+		}
+	}
+
+	const int xOffset{ m_SpawnBox.Width / (static_cast<int>(m_CollumAmount) + 1) };
+	if (minX > 0)
+	{
+		m_SpawnBox.X = minX;
+	}
+
+	m_SpawnBox.Width = maxX - minX;
+	m_SpawnBox.Width += m_VecEnemies[0]->GetBox().Width + xOffset + 30;
+}
+
+
+int EnemyManager::GetSmallestX()
+{
+	if (m_VecEnemies.empty())
+	{
+		return 0;
+	}
+
+	int minX{ m_VecEnemies.back()->GetBox().X};
+
+	for (size_t index = 0; index < m_VecEnemies.size(); index++)
+	{
+		if (m_VecEnemies[index]->IsDead() == false)
+		{
+			if (m_VecEnemies[index]->GetBox().X < minX)
+			{
+				minX = m_VecEnemies[index]->GetBox().X;
+			}
+		}
+	}
+
+	return minX;
+}
+
+int EnemyManager::GetBiggestX()
+{
+	if (m_VecEnemies.empty())
+	{
+		return 0;
+	}
+
+	int maxX{ m_VecEnemies[0]->GetBox().X };
+
+	for (size_t index = 0; index < m_VecEnemies.size(); index++)
+	{
+		if (m_VecEnemies[index]->IsDead() == false)
+		{
+			if (m_VecEnemies[index]->GetBox().X > maxX)
+			{
+				maxX = m_VecEnemies[index]->GetBox().X;
+			}
+		}
+	}
+
+	return maxX + m_VecEnemies[0]->GetBox().Width;
 }

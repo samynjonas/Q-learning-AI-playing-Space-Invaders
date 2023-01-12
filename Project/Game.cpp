@@ -57,7 +57,7 @@ void Game::Start()
 {
 	// Insert the code that needs to be executed at the start of the project
 
-	m_Episode = 132;
+	m_Episode = 164;
 	NeuralNetwork readNeuralNetwork = m_pFileReader->GetNeuralNetworkOfEpisode(m_Episode);
 
 	for (auto& batch : m_VecBatches)
