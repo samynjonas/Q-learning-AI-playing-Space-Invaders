@@ -67,6 +67,15 @@
     <Filter Include="Project Files\File Handling\FileReader">
       <UniqueIdentifier>{cac78f38-8884-48b2-9a58-77db4a4ddbd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Project Files\Qlearning\Qlearning">
+      <UniqueIdentifier>{b057d7e0-510f-40da-ba5d-e77102267f37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Qlearning\QlearningCharacter">
+      <UniqueIdentifier>{a5d90466-7ef3-4a20-aabf-196dfa8b7bed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project Files\Qlearning\Episode">
+      <UniqueIdentifier>{2ea4d006-81eb-43ac-ac45-d5a4ba0b9595}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AbstractGame.cpp">
@@ -108,12 +117,6 @@
     <ClCompile Include="Delay.cpp">
       <Filter>Project Files\Delay</Filter>
     </ClCompile>
-    <ClCompile Include="Qlearning.cpp">
-      <Filter>Project Files\Qlearning</Filter>
-    </ClCompile>
-    <ClCompile Include="QLearningCharacter.cpp">
-      <Filter>Project Files\Qlearning</Filter>
-    </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Project Files\Actors\Enemy</Filter>
     </ClCompile>
@@ -129,8 +132,14 @@
     <ClCompile Include="FileReader.cpp">
       <Filter>Project Files\File Handling\FileReader</Filter>
     </ClCompile>
+    <ClCompile Include="Qlearning.cpp">
+      <Filter>Project Files\Qlearning\Qlearning</Filter>
+    </ClCompile>
+    <ClCompile Include="QLearningCharacter.cpp">
+      <Filter>Project Files\Qlearning\QlearningCharacter</Filter>
+    </ClCompile>
     <ClCompile Include="Episode.cpp">
-      <Filter>Project Files</Filter>
+      <Filter>Project Files\Qlearning\Episode</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,12 +191,6 @@
     <ClInclude Include="Delay.h">
       <Filter>Project Files\Delay</Filter>
     </ClInclude>
-    <ClInclude Include="Qlearning.h">
-      <Filter>Project Files\Qlearning</Filter>
-    </ClInclude>
-    <ClInclude Include="QLearningCharacter.h">
-      <Filter>Project Files\Qlearning</Filter>
-    </ClInclude>
     <ClInclude Include="Enemy.h">
       <Filter>Project Files\Actors\Enemy</Filter>
     </ClInclude>
@@ -203,8 +206,14 @@
     <ClInclude Include="FileReader.h">
       <Filter>Project Files\File Handling\FileReader</Filter>
     </ClInclude>
+    <ClInclude Include="Qlearning.h">
+      <Filter>Project Files\Qlearning\Qlearning</Filter>
+    </ClInclude>
+    <ClInclude Include="QLearningCharacter.h">
+      <Filter>Project Files\Qlearning\QlearningCharacter</Filter>
+    </ClInclude>
     <ClInclude Include="Episode.h">
-      <Filter>Project Files</Filter>
+      <Filter>Project Files\Qlearning\Episode</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

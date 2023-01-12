@@ -57,12 +57,7 @@ void Game::Start()
 {
 	// Insert the code that needs to be executed at the start of the project
 
-	/*m_BtnGameSpeed = make_unique<Button>(_T("Speed"));
-	m_BtnGameSpeed->SetBounds(GAME_ENGINE->GetGameWidth() + 150, 650, 125, 50);
-	m_BtnGameSpeed->AddActionListener(this);
-	m_BtnGameSpeed->Show();*/
-
-	m_Episode = 0;
+	m_Episode = 132;
 	NeuralNetwork readNeuralNetwork = m_pFileReader->GetNeuralNetworkOfEpisode(m_Episode);
 
 	for (auto& batch : m_VecBatches)
@@ -93,12 +88,10 @@ void Game::MouseButtonAction(bool isLeft, bool isDown, int x, int y, WPARAM wPar
 	}
 	*/
 }
-
 void Game::MouseWheelAction(int x, int y, int distance, WPARAM wParam)
 {	
 	// Insert the code that needs to be executed when the project registers a mouse wheel action
 }
-
 void Game::MouseMove(int x, int y, WPARAM wParam)
 {	
 	// Insert the code that needs to be executed when the mouse pointer moves across the project window
@@ -126,7 +119,6 @@ void Game::CheckKeyboard()
 	if (GAME_ENGINE->IsKeyDown(_T('O'))) yIcon -= ySpeed;
 	*/
 }
-
 void Game::KeyPressed(TCHAR cKey)
 {	
 	// DO NOT FORGET to use SetKeyList() !!
@@ -187,7 +179,6 @@ void Game::Paint(RECT rect)
 				}
 			}
 			GAME_ENGINE->FillRect(drawPosition.X + (batchXoffset * (xIndex + 1)), drawPosition.Y + (batchYoffset * (Yindex + 1)), 10, 10);
-			//GAME_ENGINE->FillRect(0, 0, 10, 10);
 
 		}
 	}
@@ -243,11 +234,6 @@ void Game::RenderText() const
 	wstring timeBuffer = std::to_wstring((m_RunTime / 1000));
 	GAME_ENGINE->DrawString(_T("Game has been running for:"), GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 4);
 	GAME_ENGINE->DrawString(timeBuffer, GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 4 + textOffset);
-
-	//GAME_ENGINE->SetColor(RGB(0, 0, 0));
-	//wstring drawingAmountBuffer = std::to_wstring(m_DrawAmount);
-	//GAME_ENGINE->DrawString(_T("Drawing :"), GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 4);
-	//GAME_ENGINE->DrawString(drawingAmountBuffer, GAME_ENGINE->GetGameWidth() + textOffset, textPos + CategoryYOffse * 4 + textOffset);
 }
 
 

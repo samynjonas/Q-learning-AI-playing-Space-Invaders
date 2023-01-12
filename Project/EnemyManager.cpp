@@ -33,7 +33,9 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Tick()
 {
 	++m_frameCounter;
-	static int moving{ 1 };
+	const int SPEED{ 1 };
+
+	static int moving{ SPEED };
 
 
 	bool skipFrame{ true };
@@ -50,7 +52,7 @@ void EnemyManager::Tick()
 		//moving right
 		if (m_SpawnBox.X + m_SpawnBox.Width - m_EnemyBox.Width >= GAME_ENGINE->GetGameWidth())
 		{
-			moving = -1;
+			moving = -SPEED;
 		}
 	}
 	else if (moving < 0)
@@ -58,7 +60,7 @@ void EnemyManager::Tick()
 		//moving left
 		if (m_SpawnBox.X + m_EnemyBox.Width < 0)
 		{
-			moving = 1;
+			moving = SPEED;
 		}
 	}
 

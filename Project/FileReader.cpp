@@ -13,7 +13,7 @@ FileReader::~FileReader()
 
 NeuralNetwork FileReader::GetNeuralNetworkOfEpisode(int number)
 {
-	NeuralNetwork neuralNetwork;
+	NeuralNetwork neuralNetwork(17, 2, 4, 3);
 
 	std::ifstream input(m_FilePath + "\\Episode_" + to_string(number) + ".txt");
 	std::string sentence{};

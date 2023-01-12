@@ -1,7 +1,7 @@
 #include "Qlearning.h"
 
 Qlearning::Qlearning()
-	: m_pNeuralNetwork{ make_unique<NeuralNetwork>() }
+	: m_pNeuralNetwork{ make_unique<NeuralNetwork>(17, 2, 4, 3) }
 {
 	
 }

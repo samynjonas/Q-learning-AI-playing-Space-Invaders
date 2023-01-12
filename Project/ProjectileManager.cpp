@@ -53,7 +53,7 @@ bool ProjectileManager::Shoot(Character& character)
 {
 	if (character.hasFired())
 	{
-		m_pProjectiles.push_back(new Projectile(GameStruct::Box{ character.GetPoint().X + character.GetBox().Width / 2, character.GetPoint().Y, 5, 5 }, 3, character.GetForwardVector()));
+		m_pProjectiles.push_back(new Projectile(GameStruct::Box{ character.GetPoint().X + character.GetBox().Width / 2, character.GetPoint().Y, 5, 5 }, 10, character.GetForwardVector()));
 		m_pProjectiles.back()->AddIgnoreID(character.GetID());
 
 		return true;
@@ -68,7 +68,7 @@ bool ProjectileManager::Shoot(BaseEnemy& Enemy)
 	{
 		if (InGameBulletsWithId(Enemy.GetID()) < MAXENEMYBULLETS)
 		{
-			m_pProjectiles.push_back(new Projectile(GameStruct::Box{ Enemy.GetPoint().X + Enemy.GetBox().Width / 2, Enemy.GetPoint().Y, 5, 5 }, 1, Enemy.GetForwardVector()));
+			m_pProjectiles.push_back(new Projectile(GameStruct::Box{ Enemy.GetPoint().X + Enemy.GetBox().Width / 2, Enemy.GetPoint().Y, 5, 5 }, 5, Enemy.GetForwardVector()));
 			m_pProjectiles.back()->AddIgnoreID(Enemy.GetID());
 		}
 		return true;

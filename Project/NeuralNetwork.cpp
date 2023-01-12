@@ -1,48 +1,37 @@
 #include "NeuralNetwork.h"
 
 
-NeuralNetwork::NeuralNetwork()
+NeuralNetwork::NeuralNetwork(int inputAmount, int hiddenLayers, int hiddenAmount, int outputamount)
 	: m_Screen{ GameStruct::Box{GAME_ENGINE->GetGameWidth(), 0, GAME_ENGINE->GetWidth() - GAME_ENGINE->GetGameWidth(), 500}}
 {
 	m_VecLayers.push_back(new Layer(RGB( 0,		255,	0	))); //Input
-	m_VecLayers.push_back(new Layer(RGB( 255,	0,		0	))); //Hidden
+
+	for (size_t i = 0; i < hiddenLayers; i++)
+	{
+		m_VecLayers.push_back(new Layer(RGB( 255,	0,		0	))); //Hidden
+	}
+
 	m_VecLayers.push_back(new Layer(RGB( 0,		255,	255	))); //Ouput
 
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	for (size_t i = 0; i < inputAmount; i++)
+	{
+		m_VecLayers[static_cast<UINT>(LayerType::Input)]->AddNeuron();
+	}
 
+	for (size_t i = 0; i < hiddenLayers; i++)
+	{
+		for (size_t j = 0; j < hiddenAmount; j++)
+		{
+			m_VecLayers[static_cast<UINT>(LayerType::Hidden) + i]->AddNeuron();
+		}
+	}
 
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
-	m_VecLayers[static_cast<UINT>(LayerType::Hidden)]->AddNeuron();
+	for (size_t i = 0; i < outputamount; i++)
+	{
+		m_VecLayers.back()->AddNeuron();
+	}
 
-
-	
-	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron(); //Go left
-	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Go Right
-	m_VecLayers[static_cast<UINT>(LayerType::Output)]->AddNeuron();	//Shoot
-
-
+	//Form connections
 	for (size_t index = 0; index < m_VecLayers.size() - 1; index++)
 	{
 		m_VecConnections.push_back(new Connection(m_VecLayers[index], m_VecLayers[index + 1]));
@@ -87,7 +76,7 @@ void NeuralNetwork::Render() const
 
 NeuralNetwork NeuralNetwork::MergeAndMutate(NeuralNetwork other)
 {
-	NeuralNetwork mergedAndMutated;
+	NeuralNetwork mergedAndMutated(17, 2, 4, 3);
 
 	for (int connectionIndex{}; connectionIndex < mergedAndMutated.m_VecConnections.size(); ++connectionIndex)
 	{
@@ -111,4 +100,27 @@ NeuralNetwork NeuralNetwork::MergeAndMutate(NeuralNetwork other)
 	}
 
 	return mergedAndMutated;
+}
+
+void NeuralNetwork::BellManEquation(int currentScore)
+{
+	const float learningRate = 0.1f;
+	const float reward{ static_cast<float>(currentScore) };
+	const float discountRate = 0.9f;
+	const float maxQ{ 1.f };
+	
+	for (auto& connection : m_VecConnections)
+	{
+		for (auto& weight : connection->m_VecWeights)
+		{
+			float newWeight;
+			float currentWeight;
+
+			newWeight = weight->value + learningRate * (reward + discountRate * maxQ - weight->value);
+			weight->value = newWeight;
+		}
+	}
+
+
+
 }

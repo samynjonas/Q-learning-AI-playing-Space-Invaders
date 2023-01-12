@@ -18,6 +18,19 @@ struct Neuron
 	int radius{ 35 };
 	
 	float value{ 0 };
+
+
+	float sigmoid(float value)
+	{
+		return (1.0f / (1.0f + std::exp(-value)));
+	}
+
+	float f_theta(float value)
+	{
+		float result = 0;
+
+	}
+
 };
 
 struct Layer
@@ -157,7 +170,7 @@ struct Connection
 class NeuralNetwork
 {
 public:
-	NeuralNetwork();
+	NeuralNetwork(int inputAmount, int hiddenLayers, int hiddenAmount, int outputamount);
 	~NeuralNetwork();
 
 	void Update();
@@ -191,14 +204,15 @@ public:
 
 	}
 
+	void BellManEquation(int currentScore);
+
 	Layer* GetInputLayer()
 	{
 		return m_VecLayers[static_cast<UINT>(LayerType::Input)];
 	}
-
 	Layer* GetOutputLayer() const
 	{
-		return m_VecLayers[static_cast<UINT>(LayerType::Output)];
+		return m_VecLayers.back();
 	}
 
 
@@ -208,8 +222,8 @@ public:
 		Hidden = 1,
 		Output = 2
 	};
-private:
 
+private:
 
 	GameStruct::Box m_Screen;
 	std::vector<Layer*> m_VecLayers;

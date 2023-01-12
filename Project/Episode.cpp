@@ -9,7 +9,7 @@ Episode::Episode()
 	m_pProjectileManager = make_unique<ProjectileManager>();
 
 	GameStruct::Box characterBox{ 0, GAME_ENGINE->GetGameHeight() - 100 - 25, 50, 50 };
-	m_QlearningCharacter = make_unique<QLearningCharacter>( GameStruct::Box{ GAME_ENGINE->GetGameWidth() / 2 - characterBox.Width / 2, characterBox.Y, characterBox.Width, characterBox.Height }, 1, 1, true, GameStruct::vector2{0, -1}, 1);
+	m_QlearningCharacter = make_unique<QLearningCharacter>( GameStruct::Box{ GAME_ENGINE->GetGameWidth() / 2 - characterBox.Width / 2, characterBox.Y, characterBox.Width, characterBox.Height }, 1, 5, true, GameStruct::vector2{0, -1}, 1);
 }
 
 
@@ -51,6 +51,8 @@ void Episode::Tick()
 
 	m_QlearningCharacter->GetAllBullets(m_pProjectileManager->GetProjectiles());
 	
+	//m_QlearningCharacter->GetNeuralNetwork().BellManEquation(m_Score);
+
 	m_pEnemyManager->Tick();
 	m_QlearningCharacter->GetInViewInfo(m_pEnemyManager->GetEnemyVector());
 	for (auto& enemy : m_pEnemyManager->GetEnemyVector())
