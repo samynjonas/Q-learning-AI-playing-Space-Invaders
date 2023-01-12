@@ -35,10 +35,6 @@ EnemyManager::~EnemyManager()
 void EnemyManager::Tick()
 {
 	++m_frameCounter;
-	const int SPEED{ 1 };
-
-	static int moving{ SPEED };
-
 
 	bool skipFrame{ true };
 

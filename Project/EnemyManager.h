@@ -21,6 +21,9 @@ private:
 	int m_frameCounter{ 0 };
 	const int SKIPFRAMES{ 2 };
 
+	const int SPEED{ 1 };
+	int moving{ SPEED };
+
 	const int m_RowAmount;
 	const int m_CollumAmount;
 

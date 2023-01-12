@@ -60,7 +60,7 @@ void Game::Start()
 	m_pKillTimer->AddActionListener(this);
 	m_pKillTimer->Show();
 
-	m_Episode = 234;
+	m_Episode = 247;
 	NeuralNetwork readNeuralNetwork = m_pFileReader->GetNeuralNetworkOfEpisode(m_Episode);
 
 	for (auto& batch : m_VecBatches)

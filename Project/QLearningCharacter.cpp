@@ -7,7 +7,7 @@ QLearningCharacter::QLearningCharacter(GameStruct::Box box, int health, float sp
 	, m_HasReceivedInfo{ false }
 	, m_pQlearning{	 make_unique<Qlearning>() }
 	, m_LifeTime{ 0 }
-	, m_pShootDelay{ make_unique<Delay>(1000) }
+	, m_pShootDelay{ make_unique<Delay>(500) }
 	, m_EpisodeTime{ GameStruct::point{ 0, 0 } }
 	, m_BulletOnePos{ GameStruct::point{ 0, 0 } }
 	, m_BulletTwoPos{ GameStruct::point{ 0, 0 } }
