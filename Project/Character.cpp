@@ -1,6 +1,6 @@
 #include "Character.h"
 
-Character::Character(GameStruct::Box box, float health, float moveSpeed, bool isPossessed, GameStruct::vector2 forwardVector, int ID)
+Character::Character(GameStruct::Box box, int health, float moveSpeed, bool isPossessed, GameStruct::vector2 forwardVector, int ID)
 	: Actor( box, health, ID )
 	, m_Speed{ moveSpeed }
 	, m_Possessed{ isPossessed }
@@ -54,8 +54,8 @@ bool Character::HandleMovement(float deltaTime)
 	movementVector *= m_Speed * GAME_ENGINE->GetGameSpeed();
 	movementVector *= deltaTime;
 
-	m_Box.X -= movementVector.X;
-	m_Box.Y -= movementVector.Y;
+	m_Box.X -= static_cast<int>(movementVector.X);
+	m_Box.Y -= static_cast<int>(movementVector.Y);
 
 	return true;
 }

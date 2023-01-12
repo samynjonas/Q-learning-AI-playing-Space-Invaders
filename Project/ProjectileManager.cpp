@@ -16,7 +16,7 @@ bool ProjectileManager::Tick()
 	//TODO make more effecient if needed(runs 2x through vector), probably not
 	for (auto& projectile : m_pProjectiles)
 	{
-		projectile->Tick(GAME_ENGINE->GetFrameDelay());
+		projectile->Tick(static_cast<float>(GAME_ENGINE->GetFrameDelay()));
 	}
 
 	CheckProjectileLife();

@@ -137,7 +137,7 @@ struct Connection
 				}
 			}
 
-			newValue = 1 / (1 + expl(newValue)); //Sigmoid function
+			newValue = 1.f / (1.f + static_cast<float>(expl(newValue))); //Sigmoid function
 			//newValue = tanh(newValue); //Activation function -- Hyperbolic tangent -- https://en.wikipedia.org/wiki/Activation_function
 			neuronL2->value = newValue;
 

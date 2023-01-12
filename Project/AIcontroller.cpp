@@ -25,7 +25,7 @@ bool AIcontroller::PrimaryFire()
 {
 	if (m_pDelay->IsDone())
 	{
-		m_pDelay->SetDelay(RandomDelay());
+		m_pDelay->SetDelay(static_cast<float>(RandomDelay()));
 
 		m_pDelay->Reset();
 		return true;

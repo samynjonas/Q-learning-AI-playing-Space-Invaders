@@ -5,7 +5,7 @@ Controller::Controller()
 	, BASESHOOTDELAY{ 2000 }
 	, SHOOTOFFSET{ 1000 }
 {
-	m_pDelay->SetDelay(RandomDelay());
+	m_pDelay->SetDelay(static_cast<float>(RandomDelay()));
 }
 
 Controller::~Controller()

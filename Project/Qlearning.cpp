@@ -76,25 +76,25 @@ int Qlearning::Output() const
 bool Qlearning::ReceiveInfo(GameStruct::point bulletOne, GameStruct::point bulletTwo, GameStruct::point bulletThree, GameStruct::point playerPos, int maxEnemies, int enemyCount, GameStruct::point closestEnemy, Delay& shootDelay, GameStruct::point episodeTime)
 {
 	//Max values
-	float maxBulletOneX				= GAME_ENGINE->GetGameWidth();
-	float maxBulletOneY				= GAME_ENGINE->GetGameHeight();
-	float maxBulletOneDistance		= GAME_ENGINE->GetGameHeight();
-	float maxBulletTwoX				= GAME_ENGINE->GetGameWidth();
-	float maxBulletTwoY				= GAME_ENGINE->GetGameHeight();
-	float maxBulletTwoDistance		= GAME_ENGINE->GetGameHeight();
-	float maxBulletThreeX			= GAME_ENGINE->GetGameWidth();
-	float maxBulletThreeY			= GAME_ENGINE->GetGameHeight();
-	float maxBulletThreeDistance	= GAME_ENGINE->GetGameHeight();
+	float maxBulletOneX				= static_cast<float>(GAME_ENGINE->GetGameWidth());
+	float maxBulletOneY				= static_cast<float>(GAME_ENGINE->GetGameHeight());
+	float maxBulletOneDistance		= static_cast<float>(GAME_ENGINE->GetGameHeight());
+	float maxBulletTwoX				= static_cast<float>(GAME_ENGINE->GetGameWidth());
+	float maxBulletTwoY				= static_cast<float>(GAME_ENGINE->GetGameHeight());
+	float maxBulletTwoDistance		= static_cast<float>(GAME_ENGINE->GetGameHeight());
+	float maxBulletThreeX			= static_cast<float>(GAME_ENGINE->GetGameWidth());
+	float maxBulletThreeY			= static_cast<float>(GAME_ENGINE->GetGameHeight());
+	float maxBulletThreeDistance	= static_cast<float>(GAME_ENGINE->GetGameHeight());
 
-	float maxShipX					= GAME_ENGINE->GetGameWidth();
-	float maxDistanceLeftBorder		= GAME_ENGINE->GetGameWidth();
-	float maxDistanceRightBorder	= GAME_ENGINE->GetGameWidth();
+	float maxShipX					= static_cast<float>(GAME_ENGINE->GetGameWidth());
+	float maxDistanceLeftBorder		= static_cast<float>(GAME_ENGINE->GetGameWidth());
+	float maxDistanceRightBorder	= static_cast<float>(GAME_ENGINE->GetGameWidth());
 		  
 	float maxShootDelay				= shootDelay.GetDelay();
-	float maxEpisodeTime			= episodeTime.Y;
+	float maxEpisodeTime			= static_cast<float>(episodeTime.Y);
 
-	float maxDistanceClosestEnemy	= GAME_ENGINE->GetGameHeight();
-	float maxEnemyCount				= maxEnemies;
+	float maxDistanceClosestEnemy	= static_cast<float>(GAME_ENGINE->GetGameHeight());
+	float maxEnemyCount				= static_cast<float>(maxEnemies);
 
 
 	//Scaled values

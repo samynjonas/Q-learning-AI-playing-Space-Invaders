@@ -72,7 +72,7 @@ void EnemyManager::Tick()
 	{
 		if (enemy != nullptr)
 		{
-			enemy->Tick(GAME_ENGINE->GetFrameDelay());
+			enemy->Tick(static_cast<float>(GAME_ENGINE->GetFrameDelay()));
 
 			if (skipFrame == false)
 			{

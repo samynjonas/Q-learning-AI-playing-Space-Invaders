@@ -19,7 +19,7 @@ public:
 	bool Draw() const override;
 	virtual bool Tick(float deltaTime) override;
 	
-	void Move(float x, float y);
+	void Move(int x, int y);
 
 	virtual bool hasFired();
 

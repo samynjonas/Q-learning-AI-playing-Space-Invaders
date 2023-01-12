@@ -15,7 +15,7 @@ public:
 
 		int distance(GameStruct::point other) const
 		{
-			return sqrt(pow(other.X - X, 2) + pow(other.Y - Y, 2) * 1.0);
+			return static_cast<int>(sqrt(pow(other.X - X, 2) + pow(other.Y - Y, 2) * 1));
 		}
 
 		int X{};

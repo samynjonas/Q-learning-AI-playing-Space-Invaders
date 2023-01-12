@@ -1,6 +1,6 @@
 #include "QLearningCharacter.h"
 
-QLearningCharacter::QLearningCharacter(GameStruct::Box box, float health, float speed, bool isPossessed, GameStruct::vector2 forwardVector, int ID)
+QLearningCharacter::QLearningCharacter(GameStruct::Box box, int health, float speed, bool isPossessed, GameStruct::vector2 forwardVector, int ID)
 	: Character(box, health, speed, isPossessed, forwardVector, ID)
 	, m_SimulateFire{ false }
 	, m_ViewRange{ 250 }
@@ -27,10 +27,10 @@ bool QLearningCharacter::MoveLeft()
 	GameStruct::vector2 movementVector{ 1, 0 };
 
 	movementVector *= m_Speed;
-	movementVector *= GAME_ENGINE->GetFrameDelay();
+	movementVector *= static_cast<float>(GAME_ENGINE->GetFrameDelay());
 
-	m_Box.X -= movementVector.X;
-	m_Box.Y -= movementVector.Y;
+	m_Box.X -= static_cast<int>(movementVector.X);
+	m_Box.Y -= static_cast<int>(movementVector.Y);
 
 	return true;
 }
@@ -39,10 +39,10 @@ bool QLearningCharacter::MoveRight()
 	GameStruct::vector2 movementVector{ -1, 0 };
 
 	movementVector *= m_Speed;
-	movementVector *= GAME_ENGINE->GetFrameDelay();
+	movementVector *= static_cast<float>(GAME_ENGINE->GetFrameDelay());
 
-	m_Box.X -= movementVector.X;
-	m_Box.Y -= movementVector.Y;
+	m_Box.X -= static_cast<int>(movementVector.X);
+	m_Box.Y -= static_cast<int>(movementVector.Y);
 
 	return true;
 }
@@ -99,9 +99,8 @@ bool QLearningCharacter::HandleMovement(float deltaTime)
 	}
 
 	movementVector *= m_Speed;
-	movementVector *= deltaTime;
 
-	m_Box.X -= movementVector.X;
+	m_Box.X -= static_cast<int>(movementVector.X);
 
 	return true;
 }
@@ -110,7 +109,7 @@ bool QLearningCharacter::HandleMovement(float deltaTime)
 bool QLearningCharacter::Tick(float deltaTime)
 {
 	//Clear previous InviewInfo
-	m_LifeTime += deltaTime;
+	m_LifeTime += static_cast<int>(deltaTime);
 
 	m_pShootDelay->Tick();
 	m_pQlearning->Tick();
@@ -133,7 +132,7 @@ bool QLearningCharacter::Tick(float deltaTime)
 
 	m_pQlearning->ReceiveInfo(m_BulletOnePos, m_BulletTwoPos, m_BulletThreePos, m_Box.GetCenter(), m_MaxEnemyCount, m_EnemyCount, m_ClosestEnemy, *m_pShootDelay, m_EpisodeTime);
 
-	HandleMovement(GAME_ENGINE->GetFrameDelay());
+	HandleMovement(static_cast<float>(GAME_ENGINE->GetFrameDelay()));
 	
 	ResetInfo();
 
@@ -176,7 +175,7 @@ bool QLearningCharacter::GetAllBullets(std::vector<Projectile*> enemyBullets)
 bool QLearningCharacter::GetInViewInfo(std::vector<BaseEnemy*> enemies)
 {
 	int distance{GAME_ENGINE->GetGameHeight()};
-	m_EnemyCount = enemies.size();
+	m_EnemyCount = static_cast<int>(enemies.size());
 
 	for (const auto& enemy : enemies)
 	{
@@ -212,13 +211,13 @@ int QLearningCharacter::GetSquaredDistance(GameStruct::point p1, GameStruct::poi
 {
 	int distance{};
 
-	distance = ( powf((p2.X - p1.X), 2.f) + powf((p2.Y - p1.Y), 2.f) );
+	distance = static_cast<int>( powf((static_cast<float>(p2.X) - static_cast<float>(p1.X)), 2.f) + powf((static_cast<float>(p2.Y) - static_cast<float>(p1.Y)), 2.f) );
 
 	return abs(distance);
 }
 int QLearningCharacter::GetDistance(GameStruct::point p1, GameStruct::point p2) const
 {
-	return sqrtf(GetSquaredDistance(p1, p2));
+	return static_cast<int>(sqrtf(static_cast<float>(GetSquaredDistance(p1, p2))));
 }
 
 bool QLearningCharacter::ResetInfo()

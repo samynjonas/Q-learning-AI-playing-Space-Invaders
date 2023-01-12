@@ -8,10 +8,10 @@ public:
 	// -------------------------
 	// Copy/move constructors and assignment operators
 	// -------------------------    
-	HealthComponent(const HealthComponent& other) {}
-	HealthComponent(HealthComponent&& other) noexcept {}
-	HealthComponent& operator=(const HealthComponent& other) {}
-	HealthComponent& operator=(HealthComponent&& other)	noexcept {}
+	HealthComponent(const HealthComponent& other) = delete;
+	HealthComponent(HealthComponent&& other) noexcept = delete;
+	HealthComponent& operator=(const HealthComponent& other) = delete;
+	HealthComponent& operator=(HealthComponent&& other)	noexcept = delete;
 
 	bool Damage(float amount);
 	float GetHealth() const;

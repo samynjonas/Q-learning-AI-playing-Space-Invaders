@@ -12,7 +12,7 @@
 class QLearningCharacter : public Character
 {
 public:
-	QLearningCharacter(GameStruct::Box box, float health, float speed, bool isPossessed, GameStruct::vector2 forwardVector, int ID);
+	QLearningCharacter(GameStruct::Box box, int health, float speed, bool isPossessed, GameStruct::vector2 forwardVector, int ID);
 	~QLearningCharacter();
 
 	// -------------------------

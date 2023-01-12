@@ -34,7 +34,7 @@ void FileWriter::Write(int episodeNum, std::vector<Connection*> m_VecConnections
 		output << "Connection=\"" << its(index) << "\"" << std::endl;
 		for (int weightIndex{}; weightIndex < m_VecConnections[index]->m_VecWeights.size(); weightIndex++)
 		{
-			output << "\w=\"" << its(weightIndex) << "=\"" << fts(m_VecConnections[index]->m_VecWeights[weightIndex]->value) << "\"" << std::endl;
+			output << "\tw=\"" << its(weightIndex) << "=\"" << fts(m_VecConnections[index]->m_VecWeights[weightIndex]->value) << "\"" << std::endl;
 		}
 		output << "/>" << std::endl << std::endl;
 
