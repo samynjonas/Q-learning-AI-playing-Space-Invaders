@@ -61,10 +61,18 @@ Instead of using a Q-table, deep Q-learning uses a neural network to take the st
 
 ![Image](https://www.assemblyai.com/blog/content/images/size/w1000/2022/02/rl5.png)
 
+
+## How is training done on a neural network?
+
+A neural network has weight connecting all neurons. for every connection of a neuron there is a calculation done, the result is the value of the connected neuron.
+By training the Neural network the weight value of these connections change changing the outcome.
+
+I run 500 batches(games) at the same times, and when they are all done, either dead, no time left or killed all the enemies. I compare them all, take the 2 with the highest score and run a MergeAndMutate function, this will create a new neural network with connections from those 2 neural network and adding a random chance of mutating a weight to a complete random value. Making the new episode better than the last one.
+
 # How is it done in this project
 
-In this project I have a character(the deep Q-leanring character) that train his neural network to defeat the enemies.
-He has 17 inputs:
+In this project I have a character(the deep Q-leanring character) that train his neural network to defeat the enemies.\
+He has 17 **inputs**:
 + bulletOneX
 + bulletOneY
 + distanceToBulletOne
@@ -82,15 +90,26 @@ He has 17 inputs:
 + ShootDelay
 + EpisodeTime
 
-He has 3 ouputs:
+He has 3 **ouputs**:
 + MoveLeft
 + MoveRight
 + Shoot
 
-And 8 Hidden neurons divided in 2 hidden layers
+And 8 **Hidden neurons** divided in 2 **hidden layers**
 
 ### I wrote my own neural network class, with visualisation which looks like this:
 
-![Image](https://drive.google.com/file/d/1ahOWHAle6j-YwTfCj7HgG64adr1VKDFQ/view?usp=sharing)
+![NeuralNetworkVisual](https://user-images.githubusercontent.com/37669649/212311480-82b9ab85-5293-4237-b754-5b8351e61792.png) 
+
+Green are inputs\
+red the hidden layers\
+blue the outputs
 
 
+And depending on the highest output, this will be action he takes.
+
+This all result in this
+
+![AI_plays_Galaga](https://user-images.githubusercontent.com/37669649/212318466-8b659514-f0e1-4937-ae4d-ad7541253f23.gif)
+
+This is one episode of the AI, when the current batch dies, you switch to the next one that isnt dead, this until all are dead, starting the next episode
