@@ -69,6 +69,9 @@ By training the Neural network the weight value of these connections change chan
 
 I run 500 batches(games) at the same times, and when they are all done, either dead, no time left or killed all the enemies. I compare them all, take the 2 with the highest score and run a MergeAndMutate function, this will create a new neural network with connections from those 2 neural network and adding a random chance of mutating a weight to a complete random value. Making the new episode better than the last one.
 
+Ofcourse some inputs values can scale very high making them having a bigger impact, this is solved by using an activation function\
+You have different kind of activation function, I use sigmoid scaling the values [0, 1].
+
 # How is it done in this project
 
 In this project I have a character(the deep Q-leanring character) that train his neural network to defeat the enemies.\
