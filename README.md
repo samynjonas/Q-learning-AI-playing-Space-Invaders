@@ -1,4 +1,4 @@
-# AI learning to play galage with reinforcement learning
+# AI learning to play Space Invaders with reinforcement learning
 ***
 
 ## What is reinforcement learning?
@@ -113,6 +113,7 @@ And depending on the highest output, this will be action he takes.
 
 This all result in this
 
-![AI_plays_Galaga](https://user-images.githubusercontent.com/37669649/212318466-8b659514-f0e1-4937-ae4d-ad7541253f23.gif)
+![GalagaGif](https://github.com/samynjonas/Q-learning-AI-playing-Space-Invaders/assets/37669649/b232f931-cee6-482e-abd9-f05151f8ebb8)
+
 
 This is one episode of the AI, when the current batch dies, you switch to the next one that isnt dead, this until all are dead, starting the next episode
